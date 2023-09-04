@@ -1,17 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 // import AnimatedCursor from "react-animated-cursor";
 import "./../styles/global.css";
-import landingPage from "./../mediaFiles/landingPage.png";
 import {
   Twitter,
-  Facebook,
   Instagram,
   Linkedin,
   GitHub,
-  ToggleLeft,
-  ToggleRight,
 } from "react-feather";
 import Loader from "@/components/Loader";
 

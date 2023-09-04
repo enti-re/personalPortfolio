@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from "react";
-import { About } from "./About";
+import React from "react";
 import "./../styles/global.css";
 import HomePage from "./Home";
 import Head from "next/head";
