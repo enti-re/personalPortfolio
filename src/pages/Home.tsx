@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 // import AnimatedCursor from "react-animated-cursor";
 import "./../styles/global.css";
-import {
-  Twitter,
-  Instagram,
-  Linkedin,
-  GitHub,
-} from "react-feather";
+import { Twitter, Instagram, Linkedin, GitHub } from "react-feather";
 import Loader from "@/components/Loader";
 
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
@@ -19,6 +14,15 @@ import { Projects } from "@/components/Projects";
 
 const HomePage = (props: any) => {
   const [page, setPage] = useState("about");
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    setCounter(counter + 1);
+    const key = setInterval(() => {
+      console.log({ counter });
+      setCounter(counter + 1);
+    }, 1000);
+  }, []);
 
   return (
     <div className="flex flex-row w-screen h-screen px-36 pt-16 justify-center items-center gap-48 bg-black text-gray-400">
