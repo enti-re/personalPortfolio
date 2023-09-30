@@ -1,4 +1,4 @@
-.loader {
+.entry-loader {
     width: 4px;
     height: 86px;
     background: #fff;
@@ -9,7 +9,7 @@
     transform-origin: 0 0;
   }
   
-  .loader::before {
+  .entry-loader::before {
     content: '';
     position: absolute;
     left: 50%;
@@ -22,7 +22,7 @@
     border-top: none;
     border-radius: 0 0 20px 20px;
   }
-  .loader::after {
+  .entry-loader::after {
     content: '';
     left: 50%;
     bottom: 0;
