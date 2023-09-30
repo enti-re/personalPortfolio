@@ -1,5 +1,4 @@
 import React from "react";
-import Scramble from 'react-scramble'
 
 const renderProject = () => {
   const projects = [
@@ -64,5 +63,9 @@ const renderProject = () => {
 };
 
 export const Projects = () => {
-  return <div className="flex flex-col gap-8">{renderProject()}</div>;
+  return (
+    <div className="w-1/2 h-full flex justify-start items-start overflow-scroll">
+      <div className="flex flex-col gap-8">{renderProject()}</div>
+    </div>
+  );
 };

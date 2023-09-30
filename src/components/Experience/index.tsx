@@ -70,5 +70,9 @@ const renderExperience = experiences.map((experience: any) => {
 });
 
 export const Experience = () => {
-  return <div className="flex flex-col gap-4">{renderExperience}</div>;
+  return (
+    <div className="w-1/2 h-full flex justify-center items-center overflow-scroll">
+      <div className="flex flex-col gap-4">{renderExperience}</div>;
+    </div>
+  );
 };

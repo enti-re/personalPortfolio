@@ -1,5 +1,5 @@
 import React from "react";
-import "./../styles/global.css";
+import "../styles/global.css";
 import HomePage from "./Home";
 import Head from "next/head";
 
