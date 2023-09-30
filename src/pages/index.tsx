@@ -10,7 +10,7 @@ const App = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Alata&family=Caveat+Brush&family=Comfortaa:wght@400;500&family=Lilita+One&family=Narnoor&family=Rubik&family=Shadows+Into+Light&family=Tilt+Warp&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Anton&family=Caveat+Brush&family=Comfortaa:wght@400;500&family=DM+Sans:opsz@9..40&family=Lilita+One&family=Narnoor&family=Rubik&family=Shadows+Into+Light&family=Tilt+Warp&display=swap"
           rel="stylesheet"
         />
       </Head>

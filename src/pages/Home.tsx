@@ -14,10 +14,11 @@ import EntryLoader from "@/components/EntryLoader";
 
 const HomePage = () => {
   const [page, setPage] = useState("about");
+  const [navigation, setNavigation] = useState("about");
   const [loader, setLoder] = useState(true);
 
   useEffect(() => {
-    console.log("enteirng here...")
+    console.log("enteirng here...");
     setTimeout(() => {
       setLoder(false);
     }, 3000);
@@ -58,54 +59,58 @@ const HomePage = () => {
       />
       <div className="w-1/3 h-full flex flex-col justify-center items-start gap-2">
         <div className="text-6xl">
-          <div className="text-6xl word-break">Nikhil Chandna</div>
-          <div className="text-2xl">Software Engineer at Zopsmart</div>
+          <div className="text-6xl text-slate-200 word-break">Nikhil Chandna</div>
+          <div className="text-2xl text-slate-200">Software Engineer at Zopsmart</div>
         </div>
         <div style={{ display: "flex", gap: "2px" }} className="flex flex-col">
           <a
             href="#"
-            className={`${page === "about" ? "text-white" : ""}`}
+            className={`${navigation === "about" ? "text-white" : ""}`}
             onClick={async () => {
+              setNavigation("about");
               setPage("loader");
               setTimeout(() => {
                 setPage("about");
               }, 2000);
             }}
           >
-            {page === "about" ? "____" : "_"}About
+            {navigation === "about" ? "____" : "_"}About
           </a>
           <a
-            className={`${page === "experience" ? "text-white" : ""} `}
+            className={`${navigation === "experience" ? "text-white" : ""} `}
             onClick={() => {
+              setNavigation("experience");
               setPage("loader");
               setTimeout(() => {
                 setPage("experience");
               }, 2000);
             }}
           >
-            {page === "experience" ? "____" : "_"}Experience
+            {navigation === "experience" ? "____" : "_"}Experience
           </a>
           <a
-            className={`${page === "projects" ? "text-white" : ""}`}
+            className={`${navigation === "projects" ? "text-white" : ""}`}
             onClick={() => {
+              setNavigation("projects");
               setPage("loader");
               setTimeout(() => {
                 setPage("projects");
               }, 2000);
             }}
           >
-            {page === "projects" ? "____" : "_"}Projects
+            {navigation === "projects" ? "____" : "_"}Projects
           </a>
           <a
-            className={`${page === "contact" ? "text-white" : ""}`}
+            className={`${navigation === "contact" ? "text-white" : ""}`}
             onClick={() => {
+              setNavigation("contact");
               setPage("loader");
               setTimeout(() => {
                 setPage("contact");
               }, 2000);
             }}
           >
-            {page === "contact" ? "____" : "_"}Contact
+            {navigation === "contact" ? "____" : "_"}Contact
           </a>
         </div>
       </div>
