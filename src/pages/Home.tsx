@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "../styles/global.css";
 import Loader from "@/components/Loader";
@@ -10,9 +10,24 @@ import { Experience } from "@/components/Experience";
 import { Projects } from "@/components/Projects";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
+import EntryLoader from "@/components/EntryLoader";
 
 const HomePage = () => {
   const [page, setPage] = useState("about");
+  const [loader,setLoder] = useState(true);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoder(false)
+    },3000)
+  },[])
+
+  if(loader)
+  return (
+    <div className="bg-black w-screen h-screen">
+      <EntryLoader />
+    </div>
+  );
 
   return (
     <div className="flex flex-row w-screen h-screen px-36 pt-16 justify-center items-center gap-48 bg-black text-gray-400">

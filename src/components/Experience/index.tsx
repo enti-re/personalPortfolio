@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "react-dom";
 
 const experiences = [
   {
@@ -72,7 +71,7 @@ const renderExperience = experiences.map((experience: any) => {
 export const Experience = () => {
   return (
     <div className="w-1/2 h-full flex justify-center items-center overflow-scroll">
-      <div className="flex flex-col gap-4">{renderExperience}</div>;
+      <div className="flex flex-col gap-4">{renderExperience}</div>
     </div>
   );
 };
