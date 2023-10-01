@@ -27,6 +27,29 @@ const HomePage = () => {
   if (loader) {
     return (
       <div className="bg-black w-screen h-screen">
+        <AnimatedCursor
+          color="255, 255, 255"
+          innerSize={8}
+          outerSize={8}
+          innerScale={2}
+          outerScale={2}
+          clickables={[
+            "a",
+            'input[type="text"]',
+            'input[type="email"]',
+            'input[type="number"]',
+            'input[type="submit"]',
+            'input[type="image"]',
+            "label[for]",
+            "select",
+            "textarea",
+            "button",
+            ".link",
+          ]}
+          outerStyle={{
+            mixBlendMode: "exclusion",
+          }}
+        />
         <EntryLoader />
       </div>
     );
@@ -59,8 +82,12 @@ const HomePage = () => {
       />
       <div className="w-1/3 h-full flex flex-col justify-center items-start gap-2">
         <div className="text-6xl">
-          <div className="text-6xl text-slate-200 word-break">Nikhil Chandna</div>
-          <div className="text-2xl text-slate-200">Software Engineer at Zopsmart</div>
+          <div className="text-6xl text-slate-200 word-break">
+            Nikhil Chandna
+          </div>
+          <div className="text-2xl text-slate-200">
+            Software Engineer at Zopsmart
+          </div>
         </div>
         <div style={{ display: "flex", gap: "2px" }} className="flex flex-col">
           <a
