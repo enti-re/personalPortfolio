@@ -49,11 +49,11 @@ const renderSkills = (skills: any) => {
 
 const ExperienceItem = ({ experience }: { experience: any }) => {
   return (
-    <div className="flex flex-row">
-      <div className="text-truncate whitespace-pre w-1/3 bold text-slate-200">
+    <div className="flex flex-col md:flex-row">
+      <div className="text-truncate whitespace-pre sm:w-full md:w-1/3 bold text-slate-200">
         {experience.date.start}-{experience.date.end}
       </div>
-      <div className="flex flex-col gap-2 w-2/3">
+      <div className="flex flex-col gap-2 sm:w-full md:w-2/3">
         <div className="text-slate-200 underline">{experience.role.title}</div>
         <div>{experience.role.description}</div>
         <div className="flex flex-row flex-wrap gap-2">
@@ -70,7 +70,7 @@ const renderExperience = experiences.map((experience: any) => {
 
 export const Experience = () => {
   return (
-    <div className="w-1/2 h-full flex justify-center items-center overflow-scroll">
+    <div className="sm:w-full md:w-1/2 h-full flex justify-center sm:items-start md:items-center overflow-scroll">
       <div className="flex flex-col gap-4">{renderExperience}</div>
     </div>
   );

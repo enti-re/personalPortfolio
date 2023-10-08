@@ -3,7 +3,7 @@ import { GitHub, Instagram, Linkedin, Twitter } from "react-feather";
 
 const Contact = () => {
   return (
-    <div className="w-1/2 h-full flex flex-col justify-center items-left overflow-scroll gap-4">
+    <div className="sm:w-full sm:justify-start h-full flex flex-col  items-left overflow-scroll gap-4  md:w-1/2 md:justify-center ">
       <div>
         Contact me if you need a developer for any javascript work - React,
         Node.js, Next.js, Express.js

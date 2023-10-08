@@ -50,7 +50,7 @@ const renderProject = () => {
   };
   return projects.map((project) => {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 sm:w-full">
         {/* <div>{project.imgUrl}</div> */}
         <div className="underline text-slate-200">{project.projectTitle}</div>
         <div>{project.projectDescription}</div>
@@ -64,7 +64,7 @@ const renderProject = () => {
 
 export const Projects = () => {
   return (
-    <div className="w-1/2 h-full flex justify-start items-start overflow-scroll">
+    <div className="sm:w-full md:w-1/2 md:justify-start md:items-start h-full flex  overflow-scroll">
       <div className="flex flex-col gap-8">{renderProject()}</div>
     </div>
   );

@@ -56,8 +56,8 @@ const HomePage = () => {
   }
 
   return (
-    <div className="flex flex-row w-screen h-screen px-36 pt-16 justify-center items-center gap-48 bg-black text-gray-400">
-      <AnimatedCursor
+    <div className="flex flex-col md:flex-row w-screen h-screen px-4 md:px-36 pt-16 gap-12 md:gap-48 justify-center items-center bg-black text-gray-400 overflow-scroll">
+      {window.innerWidth > 540 && <AnimatedCursor
         color="255, 255, 255"
         innerSize={8}
         outerSize={8}
@@ -79,17 +79,17 @@ const HomePage = () => {
         outerStyle={{
           mixBlendMode: "exclusion",
         }}
-      />
-      <div className="w-1/3 h-full flex flex-col justify-center items-start gap-2">
+      />}
+      <div className="sm:w-full sm:w-1/3 flex sm:flex-row md:flex-col justify-center gap-8 md:gap-2">
         <div className="text-6xl">
-          <div className="text-6xl text-slate-200 word-break">
+          <div className="text-5xl md:text-6xl text-slate-200 word-break">
             Nikhil Chandna
           </div>
-          <div className="text-2xl text-slate-200">
+          <div className="text-lg md:text-2xl text-slate-200">
             Software Engineer at Zopsmart
           </div>
         </div>
-        <div style={{ display: "flex", gap: "2px" }} className="flex flex-col">
+        <div className="flex flex-col sm:justify-center">
           <a
             href="#"
             className={`${navigation === "about" ? "text-white" : ""}`}

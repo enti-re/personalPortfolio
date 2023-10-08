@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="w-2/3 h-full flex flex-col justify-center items-center overflow-scroll gap-4">
+    <div className="sm:w-full flex h-full flex-col sm:justify-start sm:items-start md:justify-center md:items-center overflow-scroll gap-4 md:w-2/3">
       <div>
         I've been working as a <span className="text-gray-200">React</span> and{" "}
         <span className="text-gray-200">Node.js</span> Developer for the past 2
