@@ -54,7 +54,6 @@ const HomePage = () => {
       </div>
     );
   }
-
   return (
     <div className="flex flex-col md:flex-row w-screen h-screen px-4 md:px-36 pt-16 gap-12 md:gap-48 justify-center items-center bg-black text-gray-400 overflow-scroll">
       {window.innerWidth > 540 && <AnimatedCursor
