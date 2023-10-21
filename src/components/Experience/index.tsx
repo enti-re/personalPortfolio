@@ -2,6 +2,7 @@ import React from "react";
 
 const experiences = [
   {
+    link: "https://zopsmart.com/",
     date: {
       start: "Aug:2022",
       end: "Current",
@@ -23,6 +24,7 @@ const experiences = [
     ],
   },
   {
+    link: "https://zopsmart.com/",
     date: {
       start: "Aug:2022",
       end: "Feb:2022",
@@ -40,7 +42,7 @@ const experiences = [
 const renderSkills = (skills: any) => {
   return skills.map((skill: string) => {
     return (
-      <div className="rounded-xl border-2 p-1 text-sm text-black bg-slate-200">
+      <div className="rounded-xl border-2 p-1 text-sm text-black bg-white hover:bg-black hover:text-white ">
         {skill}
       </div>
     );
@@ -49,16 +51,20 @@ const renderSkills = (skills: any) => {
 
 const ExperienceItem = ({ experience }: { experience: any }) => {
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col gap-2 sm:w-full">
+      <a
+        href={experience.link}
+        target="_blank"
+        className="text-slate-200 text-2xl hover:underline"
+      >
+        {experience.role.title}
+      </a>
       <div className="text-truncate whitespace-pre sm:w-full md:w-1/3 bold text-slate-200">
         {experience.date.start}-{experience.date.end}
       </div>
-      <div className="flex flex-col gap-2 sm:w-full md:w-2/3">
-        <div className="text-slate-200 underline">{experience.role.title}</div>
-        <div>{experience.role.description}</div>
-        <div className="flex flex-row flex-wrap gap-2">
-          {renderSkills(experience.techStack)}
-        </div>
+      <div>{experience.role.description}</div>
+      <div className="flex flex-row flex-wrap gap-2">
+        {renderSkills(experience.techStack)}
       </div>
     </div>
   );
@@ -70,8 +76,8 @@ const renderExperience = experiences.map((experience: any) => {
 
 export const Experience = () => {
   return (
-    <div className="sm:w-full md:w-1/2 h-full flex justify-center sm:items-start md:items-center overflow-scroll">
-      <div className="flex flex-col gap-4">{renderExperience}</div>
+    <div className="sm:w-full md:w-full h-full flex sm:justify-start sm:items-start lg:justify-center lg:items-center lg:w-[55%] overflow-scroll">
+      <div className="flex flex-col gap-16">{renderExperience}</div>
     </div>
   );
 };

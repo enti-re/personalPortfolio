@@ -3,6 +3,7 @@ import React from "react";
 const renderProject = () => {
   const projects = [
     {
+      link: "#",
       imgUrl: "#",
       projectTitle: "Retail Key Tool",
       projectDescription:
@@ -18,6 +19,7 @@ const renderProject = () => {
       ],
     },
     {
+      link: "https://eazyupdates.com/login",
       imgUrl: "#",
       projectTitle: "Eazyupdate",
       projectDescription:
@@ -25,6 +27,7 @@ const renderProject = () => {
       techStack: ["React.js", "Typescript", "Css"],
     },
     {
+      link: "https://github.com/Connect-3/PlacePod",
       imgUrl: "#",
       projectTitle: "PlacePod",
       projectDescription:
@@ -32,6 +35,7 @@ const renderProject = () => {
       techStack: ["React.js", "Node.js", "MongoDB", "Express"],
     },
     {
+      link: "https://github.com/enti-re/Webhealth",
       imgUrl: "#",
       projectTitle: "Webhealth",
       projectDescription:
@@ -42,7 +46,7 @@ const renderProject = () => {
   const renderSkills = (skills: any) => {
     return skills.map((skill: string) => {
       return (
-        <div className="rounded-xl border-2 p-1 text-sm text-black bg-slate-200">
+        <div className="rounded-xl border-2 p-1 text-sm text-black bg-white hover:text-white hover:bg-black">
           {skill}
         </div>
       );
@@ -52,7 +56,9 @@ const renderProject = () => {
     return (
       <div className="flex flex-col gap-2 sm:w-full">
         {/* <div>{project.imgUrl}</div> */}
-        <div className="underline text-slate-200">{project.projectTitle}</div>
+        <div className="text-slate-200 text-2xl hover:underline">
+          {project.projectTitle}
+        </div>
         <div>{project.projectDescription}</div>
         <div className="flex flex-row flex-wrap gap-2">
           {renderSkills(project.techStack)}
@@ -64,8 +70,8 @@ const renderProject = () => {
 
 export const Projects = () => {
   return (
-    <div className="sm:w-full md:w-1/2 md:justify-start md:items-start h-full flex  overflow-scroll">
-      <div className="flex flex-col gap-8">{renderProject()}</div>
+    <div className="sm:w-full lg:w-full lg:justify-end  h-full flex  lg:w-[55%] overflow-scroll">
+      <div className="flex flex-col gap-16">{renderProject()}</div>
     </div>
   );
 };

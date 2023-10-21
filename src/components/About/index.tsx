@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="sm:w-full flex h-full flex-col sm:justify-start sm:items-start md:justify-center md:items-center overflow-scroll gap-4 md:w-2/3">
+    <div className="sm:w-full flex h-full flex-col sm:justify-start sm:items-start lg:w-[55%] lg:justify-center lg:items-center overflow-scroll gap-4 md:w-full">
       <div>
         I've been working as a <span className="text-gray-200">React</span> and{" "}
         <span className="text-gray-200">Node.js</span> Developer for the past 2
@@ -30,7 +30,6 @@ const About = () => {
         {" "}
         If you're looking for a talented and passionate React and Node.js
         Developer, I'd love to chat with you more.{" "}
-        <span className="text-gray-200">Let's connect!</span>
       </div>
     </div>
   );
