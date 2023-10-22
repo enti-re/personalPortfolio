@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import "../styles/global.css";
-import Loader from "@/components/Loader";
 import profilePic from "./../../public/dp.jpg";
 
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
@@ -12,7 +11,6 @@ import { Projects } from "@/components/Projects";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import EntryLoader from "@/components/EntryLoader";
-import DownIcon from "@/Icons/DownIcon";
 
 const HomePage = () => {
   const [page, setPage] = useState("about");
@@ -20,7 +18,15 @@ const HomePage = () => {
   const [loader, setLoder] = useState(true);
 
   useEffect(() => {
-    console.log("enteirng here...");
+    window.addEventListener("scroll", function (event) {
+      if (this.window.scrollY < 400) setNavigation("about");
+      if (this.window.scrollY > 400) setNavigation("experience");
+      if (this.window.scrollY > 1000) setNavigation("projects");
+      if (this.window.scrollY > 2000) setNavigation("contact");
+    });
+  });
+
+  useEffect(() => {
     setTimeout(() => {
       setLoder(false);
     }, 3000);
@@ -57,7 +63,7 @@ const HomePage = () => {
     );
   }
   return (
-    <div className="flex flex-col lg:flex-row w-screen h-screen sm:justify-start px-4 md:px-36 pt-16 lg:gap-20 lg:justify-center items-center bg-black text text-gray-400 overflow-scroll">
+    <div className="flex flex-col lg:flex-row sm:justify-start px-4 md:px-36 pt-16 lg:gap-56 ml-100 items-start bg-black text text-gray-400">
       {window.innerWidth > 540 && (
         <AnimatedCursor
           color="255, 255, 255"
@@ -83,7 +89,7 @@ const HomePage = () => {
           }}
         />
       )}
-      <div className="flex flex-col sm:w-[45%] justify-center sm:items-start lg:items-start gap-6">
+      <div className=" fixed flex mt-40 flex-col sm:w-[45%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
         <div className="text-6xl flex flex-row gap-4">
           <img
             width={"180px"}
@@ -115,7 +121,9 @@ const HomePage = () => {
             - About
           </a>
           <a
-            className={`${navigation === "experience" ? "text-white text-lg" : ""} `}
+            className={`${
+              navigation === "experience" ? "text-white text-lg" : ""
+            } `}
             onClick={() => {
               setNavigation("experience");
               setPage("loader");
@@ -127,7 +135,9 @@ const HomePage = () => {
             - Experience
           </a>
           <a
-            className={`${navigation === "projects" ? "text-white text-lg" : ""}`}
+            className={`${
+              navigation === "projects" ? "text-white text-lg" : ""
+            }`}
             onClick={() => {
               setNavigation("projects");
               setPage("loader");
@@ -139,7 +149,9 @@ const HomePage = () => {
             - Projects
           </a>
           <a
-            className={`${navigation === "contact" ? "text-white text-lg" : ""}`}
+            className={`${
+              navigation === "contact" ? "text-white text-lg" : ""
+            }`}
             onClick={() => {
               setNavigation("contact");
               setPage("loader");
@@ -153,11 +165,13 @@ const HomePage = () => {
         </div>
       </div>
       {/* <div className="sm:w-full lg:w-[55%] overflow-scroll"> */}
-        {page === "loader" && <Loader />}
-        {page === "about" && <About />}
-        {page === "experience" && <Experience />}
-        {page === "projects" && <Projects />}
-        {page === "contact" && <Contact />}
+      {/* {page === "loader" && <Loader />} */}
+      <div className="flex flex-col justify-center items-end pt-40 gap-32 overflow-scroll">
+        {<About />}
+        {<Experience />}
+        {<Projects />}
+        {<Contact />}
+      </div>
       {/* </div> */}
     </div>
   );

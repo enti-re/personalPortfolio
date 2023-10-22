@@ -1,3 +1,7 @@
+body{
+  background-color: black;
+}
+
 .loader {
   transform: scale(.5);
   width: 8px;

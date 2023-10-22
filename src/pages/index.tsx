@@ -5,7 +5,7 @@ import Head from "next/head";
 
 const App = () => {
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen bg-black">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />

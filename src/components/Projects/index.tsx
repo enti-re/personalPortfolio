@@ -54,7 +54,7 @@ const renderProject = () => {
   };
   return projects.map((project) => {
     return (
-      <div className="flex flex-col gap-2 sm:w-full">
+      <div className="flex flex-col gap-2 sm:w-full ">
         {/* <div>{project.imgUrl}</div> */}
         <div className="text-slate-200 text-2xl hover:underline">
           {project.projectTitle}
@@ -70,8 +70,8 @@ const renderProject = () => {
 
 export const Projects = () => {
   return (
-    <div className="sm:w-full lg:w-full lg:justify-end  h-full flex  lg:w-[55%] overflow-scroll">
-      <div className="flex flex-col gap-16">{renderProject()}</div>
+    <div className="sm:w-full lg:justify-end  h-full flex lg:w-[55%] overflow-scroll">
+      <div className="flex flex-col gap-8">{renderProject()}</div>
     </div>
   );
 };
