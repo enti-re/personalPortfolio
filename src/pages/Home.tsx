@@ -89,7 +89,7 @@ const HomePage = () => {
           }}
         />
       )}
-      <div className=" fixed flex mt-40 flex-col sm:w-[45%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
+      <div className="lg:fixed flex lg:mt-40 flex-col sm:w-[45%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
         <div className="text-6xl flex flex-row gap-4">
           <img
             width={"180px"}
@@ -113,6 +113,7 @@ const HomePage = () => {
             onClick={async () => {
               setNavigation("about");
               setPage("loader");
+              window.scroll(0, 0);
               setTimeout(() => {
                 setPage("about");
               }, 2000);
@@ -126,6 +127,7 @@ const HomePage = () => {
             } `}
             onClick={() => {
               setNavigation("experience");
+              window.scroll(0, 460);
               setPage("loader");
               setTimeout(() => {
                 setPage("experience");
@@ -140,6 +142,7 @@ const HomePage = () => {
             }`}
             onClick={() => {
               setNavigation("projects");
+              window.scroll(0, 1050);
               setPage("loader");
               setTimeout(() => {
                 setPage("projects");
@@ -154,6 +157,7 @@ const HomePage = () => {
             }`}
             onClick={() => {
               setNavigation("contact");
+              window.scroll(0, 3000);
               setPage("loader");
               setTimeout(() => {
                 setPage("contact");
@@ -166,7 +170,7 @@ const HomePage = () => {
       </div>
       {/* <div className="sm:w-full lg:w-[55%] overflow-scroll"> */}
       {/* {page === "loader" && <Loader />} */}
-      <div className="flex flex-col justify-center items-end pt-40 gap-32 overflow-scroll">
+      <div className="flex flex-col justify-center items-end lg:pt-40 gap-20 lg:gap-32 overflow-scroll">
         {<About />}
         {<Experience />}
         {<Projects />}
