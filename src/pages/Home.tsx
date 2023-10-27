@@ -117,7 +117,7 @@ const HomePage = () => {
           <img
             width={"180px"}
             height={"180px"}
-            className="rounded-xl text-center"
+            className="rounded-xl text-center border border-black"
             src={profilePic.src}
           />
           <div>
