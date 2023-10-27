@@ -39,27 +39,42 @@ const experiences = [
   },
 ];
 
-const renderSkills = (skills: any) => {
-  return skills.map((skill: string) => {
-    return (
-      <div className="rounded-xl border-2 p-1 text-sm text-black bg-white hover:bg-black hover:text-white ">
-        {skill}
-      </div>
-    );
-  });
-};
-
-const ExperienceItem = ({ experience }: { experience: any }) => {
+const ExperienceItem = ({
+  experience,
+  isDarkMode,
+}: {
+  experience: any;
+  isDarkMode: boolean;
+}) => {
+  const renderSkills = (skills: any) => {
+    return skills.map((skill: string) => {
+      return (
+        <div
+          className={`rounded-xl text-sm border p-1 ${
+            isDarkMode ? "border-white" : "border-[#C0C0C0]"
+          } hover:bg-black bg-white text-[#3a3a3a] hover:text-white`}
+        >
+          {skill}
+        </div>
+      );
+    });
+  };
   return (
     <div className="flex flex-col gap-2 sm:w-full">
       <a
         href={experience.link}
         target="_blank"
-        className="text-slate-200 text-2xl hover:underline"
+        className={`${
+          isDarkMode ? "text-slate-200" : "text-[#3a3a3a]"
+        } text-2xl hover:underline`}
       >
         {experience.role.title}
       </a>
-      <div className="text-truncate whitespace-pre sm:w-full md:w-1/3 bold text-slate-200">
+      <div
+        className={`text-truncate whitespace-pre sm:w-full md:w-1/3 bold  ${
+          isDarkMode ? "text-slate-200" : "text-[#3a3a3a]"
+        }`}
+      >
         {experience.date.start}-{experience.date.end}
       </div>
       <div>{experience.role.description}</div>
@@ -70,11 +85,10 @@ const ExperienceItem = ({ experience }: { experience: any }) => {
   );
 };
 
-const renderExperience = experiences.map((experience: any) => {
-  return <ExperienceItem experience={experience} />;
-});
-
-export const Experience = () => {
+export const Experience = ({ isDarkMode }: any) => {
+  const renderExperience = experiences.map((experience: any) => {
+    return <ExperienceItem experience={experience} isDarkMode={isDarkMode} />;
+  });
   return (
     <div className="sm:w-full md:w-full h-full flex sm:justify-start sm:items-start lg:justify-center lg:items-center lg:w-[55%] overflow-scroll">
       <div className="flex flex-col gap-8">{renderExperience}</div>

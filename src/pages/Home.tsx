@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import "../styles/global.css";
 import profilePic from "./../../public/dp.jpg";
+import { Sun } from "react-feather";
 
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
   ssr: false,
@@ -16,6 +17,7 @@ const HomePage = () => {
   const [page, setPage] = useState("about");
   const [navigation, setNavigation] = useState("about");
   const [loader, setLoder] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     window.addEventListener("scroll", function (event) {
@@ -34,9 +36,11 @@ const HomePage = () => {
 
   if (loader) {
     return (
-      <div className="bg-black w-screen h-screen">
+      <div
+        className={`${isDarkMode ? "bg-black" : "bg-white"} w-screen h-screen`}
+      >
         <AnimatedCursor
-          color="255, 255, 255"
+          color={isDarkMode ? "255, 255, 255" : "58, 58, 58"}
           innerSize={8}
           outerSize={8}
           innerScale={2}
@@ -63,10 +67,14 @@ const HomePage = () => {
     );
   }
   return (
-    <div className="flex flex-col lg:flex-row sm:justify-start px-4 md:px-36 pt-16 lg:gap-56 ml-100 items-start bg-black text text-gray-400">
+    <div
+      className={`flex flex-col lg:flex-row sm:justify-start px-4 md:px-36 pt-16 lg:gap-56 ml-100 items-start ${
+        isDarkMode ? "bg-black text-gray-400" : "bg-white text-[#6f6f6f]"
+      }`}
+    >
       {window.innerWidth > 540 && (
         <AnimatedCursor
-          color="255, 255, 255"
+          color={isDarkMode ? "255, 255, 255" : "58, 58, 58"}
           innerSize={8}
           outerSize={8}
           innerScale={2}
@@ -89,7 +97,17 @@ const HomePage = () => {
           }}
         />
       )}
-      <div className="lg:fixed flex lg:mt-40 flex-col sm:w-[45%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
+      <div className="lg:fixed flex lg:mt-40 flex-col sm:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
+        <div
+          className={`fixed top-4 right-8 ${
+            isDarkMode ? "text-white" : "text-[#3A3A3A]"
+          }`}
+          onClick={() => {
+            setIsDarkMode(!isDarkMode);
+          }}
+        >
+          <Sun />
+        </div>
         <div className="text-6xl flex flex-row gap-4">
           <img
             width={"180px"}
@@ -98,10 +116,18 @@ const HomePage = () => {
             src={profilePic.src}
           />
           <div>
-            <div className="flex flex-row text-5xl md:text-7xl w-1/3 text-slate-200 word-break">
+            <div
+              className={`flex flex-row text-5xl md:text-7xl w-1/3 ${
+                isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+              }  word-break`}
+            >
               Nikhil Chandna
             </div>
-            <div className="text-lg md:text-xl text-slate-200">
+            <div
+              className={`text-lg md:text-xl ${
+                isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+              } `}
+            >
               Software Engineer
             </div>
           </div>
@@ -109,7 +135,13 @@ const HomePage = () => {
         <div className="flex sm:flex-row sm:justify-center lg:flex-col items-start gap-2">
           <a
             href="#"
-            className={`${navigation === "about" ? "text-white text-lg" : ""}`}
+            className={`${
+              navigation === "about"
+                ? isDarkMode
+                  ? "text-white  text-lg"
+                  : "text-[#3A3A3A] text-lg"
+                : ""
+            }`}
             onClick={async () => {
               setNavigation("about");
               setPage("loader");
@@ -123,7 +155,11 @@ const HomePage = () => {
           </a>
           <a
             className={`${
-              navigation === "experience" ? "text-white text-lg" : ""
+              navigation === "experience"
+                ? isDarkMode
+                  ? "text-white  text-lg"
+                  : "text-[#3A3A3A] text-lg"
+                : ""
             } `}
             onClick={() => {
               setNavigation("experience");
@@ -138,7 +174,11 @@ const HomePage = () => {
           </a>
           <a
             className={`${
-              navigation === "projects" ? "text-white text-lg" : ""
+              navigation === "projects"
+                ? isDarkMode
+                  ? "text-white  text-lg"
+                  : "text-[#3A3A3A] text-lg"
+                : ""
             }`}
             onClick={() => {
               setNavigation("projects");
@@ -153,7 +193,11 @@ const HomePage = () => {
           </a>
           <a
             className={`${
-              navigation === "contact" ? "text-white text-lg" : ""
+              navigation === "contact"
+                ? isDarkMode
+                  ? "text-white  text-lg"
+                  : "text-[#3A3A3A] text-lg"
+                : ""
             }`}
             onClick={() => {
               setNavigation("contact");
@@ -171,10 +215,10 @@ const HomePage = () => {
       {/* <div className="sm:w-full lg:w-[55%] overflow-scroll"> */}
       {/* {page === "loader" && <Loader />} */}
       <div className="flex flex-col justify-center items-end lg:pt-40 gap-20 lg:gap-32 overflow-scroll">
-        {<About />}
-        {<Experience />}
-        {<Projects />}
-        {<Contact />}
+        {<About isDarkMode={isDarkMode} />}
+        {<Experience isDarkMode={isDarkMode} />}
+        {<Projects isDarkMode={isDarkMode} />}
+        {<Contact isDarkMode={isDarkMode} />}
       </div>
       {/* </div> */}
     </div>
