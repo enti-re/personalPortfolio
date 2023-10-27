@@ -37,7 +37,10 @@ const HomePage = () => {
     }, 2000);
   }, []);
 
-  if (systemTheme === undefined) return <></>;
+  useEffect(() => {
+    if (systemTheme === "dark") setIsDarkMode(true);
+    else setIsDarkMode(false);
+  }, [systemTheme]);
 
   if (loader) {
     return (
@@ -67,7 +70,7 @@ const HomePage = () => {
             mixBlendMode: "exclusion",
           }}
         />
-        <EntryLoader />
+        <EntryLoader isDarkMode={isDarkMode} />
       </div>
     );
   }
