@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/global.css";
 import HomePage from "./Home";
 import Head from "next/head";
+import { ThemeProvider } from "next-themes";
 
 const App = () => {
   return (
@@ -14,7 +15,9 @@ const App = () => {
           rel="stylesheet"
         />
       </Head>
-      <HomePage />
+      <ThemeProvider>
+        <HomePage />
+      </ThemeProvider>
     </div>
   );
 };

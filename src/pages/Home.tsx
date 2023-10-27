@@ -12,8 +12,11 @@ import { Projects } from "@/components/Projects";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import EntryLoader from "@/components/EntryLoader";
+import { useTheme } from "next-themes";
 
 const HomePage = () => {
+  const { systemTheme } = useTheme();
+  console.log(systemTheme);
   const [page, setPage] = useState("about");
   const [navigation, setNavigation] = useState("about");
   const [loader, setLoder] = useState(true);
@@ -31,8 +34,10 @@ const HomePage = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoder(false);
-    }, 3000);
+    }, 2000);
   }, []);
+
+  if (systemTheme === undefined) return <></>;
 
   if (loader) {
     return (
@@ -40,7 +45,7 @@ const HomePage = () => {
         className={`${isDarkMode ? "bg-black" : "bg-white"} w-screen h-screen`}
       >
         <AnimatedCursor
-          color={isDarkMode ? "255, 255, 255" : "58, 58, 58"}
+          color={"255, 255, 255"}
           innerSize={8}
           outerSize={8}
           innerScale={2}
@@ -98,7 +103,7 @@ const HomePage = () => {
         />
       )}
       <div className="lg:fixed flex lg:mt-40 flex-col sm:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
-        <div
+        <button
           className={`fixed top-4 right-8 ${
             isDarkMode ? "text-white" : "text-[#3A3A3A]"
           }`}
@@ -107,7 +112,7 @@ const HomePage = () => {
           }}
         >
           <Sun />
-        </div>
+        </button>
         <div className="text-6xl flex flex-row gap-4">
           <img
             width={"180px"}
