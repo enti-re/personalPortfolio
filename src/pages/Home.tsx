@@ -16,7 +16,6 @@ import { useTheme } from "next-themes";
 
 const HomePage = () => {
   const { systemTheme } = useTheme();
-  console.log(systemTheme);
   const [page, setPage] = useState("about");
   const [navigation, setNavigation] = useState("about");
   const [loader, setLoder] = useState(true);

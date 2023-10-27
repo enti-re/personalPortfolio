@@ -34,7 +34,7 @@ const Contact = ({ isDarkMode }: { isDarkMode: boolean }) => {
             isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
           } `}
         >
-          <a href="https://www.instagram.com/nikhil_chandna_/" target="_blank">
+          <a href="https://www.linkedin.com/in/nikhil-chandna-3159631b5/" target="_blank">
             <Linkedin />
           </a>
         </div>
