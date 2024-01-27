@@ -50,9 +50,8 @@ const ExperienceItem = ({
     return skills.map((skill: string) => {
       return (
         <div
-          className={`rounded-xl text-sm border p-1 ${
-            isDarkMode ? "border-white" : "border-[#C0C0C0]"
-          } hover:bg-black bg-white text-[#3a3a3a] hover:text-white`}
+          className={`rounded-xl text-sm border p-1 ${isDarkMode ? "border-white" : "border-[#C0C0C0]"
+            } hover:bg-black bg-white text-[#3a3a3a] hover:text-white`}
         >
           {skill}
         </div>
@@ -64,16 +63,14 @@ const ExperienceItem = ({
       <a
         href={experience.link}
         target="_blank"
-        className={`${
-          isDarkMode ? "text-slate-200" : "text-[#3a3a3a]"
-        } text-2xl hover:underline`}
+        className={`${isDarkMode ? "text-slate-200" : "text-[#3a3a3a]"
+          } ${window.innerWidth < 1120 ? "text-lg" : "text-2xl"} hover:underline`}
       >
         {experience.role.title}
       </a>
       <div
-        className={`text-truncate whitespace-pre sm:w-full md:w-1/3 bold  ${
-          isDarkMode ? "text-slate-200" : "text-[#3a3a3a]"
-        }`}
+        className={`text-truncate whitespace-pre sm:w-full md:w-1/3 bold  ${isDarkMode ? "text-slate-200" : "text-[#3a3a3a]"
+          }`}
       >
         {experience.date.start}-{experience.date.end}
       </div>
@@ -90,7 +87,8 @@ export const Experience = ({ isDarkMode }: any) => {
     return <ExperienceItem experience={experience} isDarkMode={isDarkMode} />;
   });
   return (
-    <div className="sm:w-full md:w-full h-full flex sm:justify-start sm:items-start lg:justify-center lg:items-center lg:w-[55%] overflow-scroll">
+    <div className="sm:w-full md:w-full h-full flex flex-col sm:justify-start sm:items-start lg:justify-center lg:items-center lg:w-[55%] overflow-scroll">
+      {window.innerWidth < 1120 && <div className="text-xl mb-2 font-semibold text-slate-800">Experience:</div>}
       <div className="flex flex-col gap-8">{renderExperience}</div>
     </div>
   );

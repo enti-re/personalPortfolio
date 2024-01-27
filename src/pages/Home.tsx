@@ -75,9 +75,8 @@ const HomePage = () => {
   }
   return (
     <div
-      className={`flex flex-col lg:flex-row sm:justify-start px-4 md:px-36 pt-16 lg:gap-56 ml-100 items-start ${
-        isDarkMode ? "bg-black text-gray-400" : "bg-white text-[#6f6f6f]"
-      }`}
+      className={`flex flex-col lg:flex-row sm:justify-start px-4 md:px-36 pt-16 lg:gap-56 ml-100 items-start ${isDarkMode ? "bg-black text-gray-400" : "bg-white text-[#6f6f6f]"
+        }`}
     >
       {window.innerWidth > 540 && (
         <AnimatedCursor
@@ -106,9 +105,8 @@ const HomePage = () => {
       )}
       <div className="lg:fixed flex lg:mt-40 flex-col sm:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
         <button
-          className={`fixed top-4 right-8 ${
-            isDarkMode ? "text-white" : "text-[#3A3A3A]"
-          }`}
+          className={`fixed top-4 right-8 ${isDarkMode ? "text-white" : "text-[#3A3A3A]"
+            }`}
           onClick={() => {
             setIsDarkMode(!isDarkMode);
           }}
@@ -124,31 +122,28 @@ const HomePage = () => {
           />
           <div>
             <div
-              className={`flex flex-row text-5xl md:text-7xl w-1/3 ${
-                isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
-              }  word-break`}
+              className={`flex flex-row text-5xl md:text-7xl w-1/3 ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+                }  word-break`}
             >
               Nikhil Chandna
             </div>
             <div
-              className={`text-lg md:text-xl ${
-                isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
-              } `}
+              className={`text-lg md:text-xl ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+                } `}
             >
               Software Engineer
             </div>
           </div>
         </div>
-        <div className="flex sm:flex-row sm:justify-center lg:flex-col items-start gap-2">
+        {window.innerWidth > 1120 && <div className="flex sm:flex-row sm:justify-center lg:flex-col items-start gap-2">
           <a
             href="#"
-            className={`${
-              navigation === "about"
-                ? isDarkMode
-                  ? "text-white  text-lg"
-                  : "text-[#3A3A3A] text-lg"
-                : ""
-            }`}
+            className={`${navigation === "about"
+              ? isDarkMode
+                ? "text-white  text-lg"
+                : "text-[#3A3A3A] text-lg"
+              : ""
+              }`}
             onClick={async () => {
               setNavigation("about");
               setPage("loader");
@@ -161,13 +156,12 @@ const HomePage = () => {
             - About
           </a>
           <a
-            className={`${
-              navigation === "experience"
-                ? isDarkMode
-                  ? "text-white  text-lg"
-                  : "text-[#3A3A3A] text-lg"
-                : ""
-            } `}
+            className={`${navigation === "experience"
+              ? isDarkMode
+                ? "text-white  text-lg"
+                : "text-[#3A3A3A] text-lg"
+              : ""
+              } `}
             onClick={() => {
               setNavigation("experience");
               window.scroll(0, 460);
@@ -180,13 +174,12 @@ const HomePage = () => {
             - Experience
           </a>
           <a
-            className={`${
-              navigation === "projects"
-                ? isDarkMode
-                  ? "text-white  text-lg"
-                  : "text-[#3A3A3A] text-lg"
-                : ""
-            }`}
+            className={`${navigation === "projects"
+              ? isDarkMode
+                ? "text-white  text-lg"
+                : "text-[#3A3A3A] text-lg"
+              : ""
+              }`}
             onClick={() => {
               setNavigation("projects");
               window.scroll(0, 1050);
@@ -199,13 +192,12 @@ const HomePage = () => {
             - Projects
           </a>
           <a
-            className={`${
-              navigation === "contact"
-                ? isDarkMode
-                  ? "text-white  text-lg"
-                  : "text-[#3A3A3A] text-lg"
-                : ""
-            }`}
+            className={`${navigation === "contact"
+              ? isDarkMode
+                ? "text-white  text-lg"
+                : "text-[#3A3A3A] text-lg"
+              : ""
+              }`}
             onClick={() => {
               setNavigation("contact");
               window.scroll(0, 3000);
@@ -217,17 +209,16 @@ const HomePage = () => {
           >
             - Contact
           </a>
-        </div>
+        </div>}
       </div>
       {/* <div className="sm:w-full lg:w-[55%] overflow-scroll"> */}
       {/* {page === "loader" && <Loader />} */}
-      <div className="flex flex-col justify-center items-end lg:pt-40 gap-20 lg:gap-32 overflow-scroll">
+      <div className="flex flex-col justify-center items-end pt-4 lg:pt-40 gap-20 lg:gap-32 overflow-scroll">
         {<About isDarkMode={isDarkMode} />}
         {<Experience isDarkMode={isDarkMode} />}
         {<Projects isDarkMode={isDarkMode} />}
         {<Contact isDarkMode={isDarkMode} />}
       </div>
-      {/* </div> */}
     </div>
   );
 };

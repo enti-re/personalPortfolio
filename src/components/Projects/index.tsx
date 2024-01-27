@@ -48,9 +48,8 @@ export const Projects = ({ isDarkMode }: { isDarkMode: boolean }) => {
       return skills.map((skill: string) => {
         return (
           <div
-            className={`rounded-xl ${
-              isDarkMode ? "border-white" : "border-[#3A3A3A]"
-            } border  p-1 text-sm text-black bg-white hover:text-white hover:bg-black`}
+            className={`rounded-xl ${isDarkMode ? "border-white" : "border-[#3A3A3A]"
+              } border  p-1 text-sm text-black bg-white hover:text-white hover:bg-black`}
           >
             {skill}
           </div>
@@ -62,9 +61,8 @@ export const Projects = ({ isDarkMode }: { isDarkMode: boolean }) => {
         <div className="flex flex-col gap-2 sm:w-full ">
           {/* <div>{project.imgUrl}</div> */}
           <div
-            className={`${
-              isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
-            } text-2xl hover:underline`}
+            className={`${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+              } ${window.innerWidth < 1120 ? "text-lg" : "text-2xl"} text-2xl hover:underline`}
           >
             {project.projectTitle}
           </div>
@@ -77,7 +75,8 @@ export const Projects = ({ isDarkMode }: { isDarkMode: boolean }) => {
     });
   };
   return (
-    <div className="sm:w-full lg:justify-end  h-full flex lg:w-[55%] overflow-scroll">
+    <div className="sm:w-full lg:justify-end  h-full flex flex-col lg:w-[55%] overflow-scroll">
+      {window.innerWidth < 1120 && <div className="text-xl mb-2 font-semibold text-slate-800">Projects</div>}
       <div className="flex flex-col gap-8">{renderProject()}</div>
     </div>
   );
