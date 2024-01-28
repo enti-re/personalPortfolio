@@ -103,7 +103,7 @@ const HomePage = () => {
           }}
         />
       )}
-      <div className="lg:fixed flex lg:mt-40 flex-col sm:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
+      <div className="lg:fixed flex lg:mt-40 flex-col lg:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
         <button
           className={`fixed top-4 right-8 ${isDarkMode ? "text-white" : "text-[#3A3A3A]"
             }`}
@@ -117,10 +117,10 @@ const HomePage = () => {
           <img
             width={"180px"}
             height={"180px"}
-            className="rounded-xl text-center border border-black"
+            className="rounded-xl text-center border border-black w-2/5"
             src={profilePic.src}
           />
-          <div>
+          <div className="w-3/5">
             <div
               className={`flex flex-row text-5xl md:text-7xl w-1/3 ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
                 }  word-break`}

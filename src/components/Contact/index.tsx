@@ -4,7 +4,7 @@ import { GitHub, Instagram, Linkedin, Twitter } from "react-feather";
 const Contact = ({ isDarkMode }: { isDarkMode: boolean }) => {
   return (
     <div className="sm:w-full lg:pt-32 sm:justify-start flex flex-col items-left overflow-scroll gap-4 lg:w-[55%] lg:justify-start h-[700px] ">
-      {window.innerWidth < 1120 && <div className="text-xl font-semibold -mb-2 text-slate-800">Contact:</div>}
+      {window.innerWidth < 1120 && <div className={`text-xl font-semibold -mb-2  ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Contact:</div>}
       <div>
         Contact me if you need a developer for any javascript work - React,
         Node.js, Next.js, Express.js

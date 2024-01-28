@@ -3,7 +3,7 @@ import React from "react";
 const About = ({ isDarkMode }: { isDarkMode: boolean }) => {
   return (
     <div className="sm:w-full flex h-full flex-col sm:justify-start sm:items-start lg:w-[55%] lg:justify-center lg:items-center overflow-scroll gap-4 md:w-full">
-      {window.innerWidth < 1120 && <div className="text-xl font-semibold -mb-2 text-slate-800">About:</div>}
+      {window.innerWidth < 1120 && <div className={`text-xl font-semibold -mb-2 ${isDarkMode ? "text-gray-200" : "text-slate-800"}`}>About:</div>}
       <div>
         I've been working as a{" "}
         <span

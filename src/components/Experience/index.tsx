@@ -88,7 +88,7 @@ export const Experience = ({ isDarkMode }: any) => {
   });
   return (
     <div className="sm:w-full md:w-full h-full flex flex-col sm:justify-start sm:items-start lg:justify-center lg:items-center lg:w-[55%] overflow-scroll">
-      {window.innerWidth < 1120 && <div className="text-xl mb-2 font-semibold text-slate-800">Experience:</div>}
+      {window.innerWidth < 1120 && <div className={`text-xl mb-2 font-semibold ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Experience:</div>}
       <div className="flex flex-col gap-8">{renderExperience}</div>
     </div>
   );
