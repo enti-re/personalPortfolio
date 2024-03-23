@@ -75,7 +75,7 @@ export const Projects = ({ isDarkMode }: { isDarkMode: boolean }) => {
     });
   };
   return (
-    <div className="sm:w-full lg:justify-end  h-full flex flex-col lg:w-[55%] overflow-scroll">
+    <div className="sm:w-full lg:justify-end  h-full flex flex-col pb-16 lg:w-[55%] overflow-scroll">
       {window.innerWidth < 1120 && <div className={`text-xl mb-2 font-semibold  ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Projects</div>}
       <div className="flex flex-col gap-8">{renderProject()}</div>
     </div>

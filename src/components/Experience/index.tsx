@@ -10,7 +10,7 @@ const experiences = [
     role: {
       title: "Software Engineer - Zopsmart",
       link: "#",
-      description: `As a full stack developer, I built a retail key management tool from scratch for Mcafee using React and Node.js. The tool provides features to manage and generate keys, batches, part numbers, and retailers. It also implements Auth0 authentication, caching, tracking, tracing, MUI, governance modal, health check, CSV handling, and API aggregation. In addition, I mentored interns and interviewed SDE candidates.`,
+      description: `As a fullstack developer, I led the creation of a user-friendly Documentation portal using Docusaurus (React), featuring secure authentication via Auth0 and efficient API execution with Open-API supported swaggers. I streamlined our process with Microfrontend architecture and Monorepo Configuration in the TN TOOL. Using React and Tailwind UI, I built a shared CRUD Operation Table. In the Retail Key Tool, I crafted a sleek React Application with TypeScript and MUI Framework, including Auth0 authentication and rigorous unit testing. On the backend, I developed Restful APIs with Node.js and Koa.js, integrating Auth0 for security and optimizing performance with caching. Additionally, I automated our workflow with CI/CD and mentored Junior Developer Interns for code quality and teamwork.`,
     },
     techStack: [
       "React.js",
@@ -21,6 +21,8 @@ const experiences = [
       "Next.js",
       "TailwindCss",
       "Typescript",
+      "Docusaurus",
+      "TanStack"
     ],
   },
   {
@@ -33,7 +35,7 @@ const experiences = [
       title: "Software Engineer Intern - Zopsmart",
       link: "#",
       description:
-        "As a Frontend Engineer, built an employee management portal called EazyUpdate from scratch. It has features such as maintaining company projects, user timelines, project details pages, API integration, and authorization.",
+        "EazyUpdate is a collaborative project where, alongside a team of three, we utilized TypeScript, CSS, and React to develop a comprehensive application from scratch. Within the project, I spearheaded the seamless integration of API interactions from React components to the backend, ensuring a cohesive UI architecture. My focus on the Task Page functionality resulted in a robust feature set, including task creation, deletion, modification, and management of subtasks, all while prioritizing seamless responsiveness across diverse screen sizes and platforms for optimal user experience. Furthermore, I enhanced the organizational structure by adapting the D3-org-chart library to efficiently visualize the employee hierarchy, contributing to the project's overall functionality and usability.",
     },
     techStack: ["React.js", "Typescript", "Css"],
   },

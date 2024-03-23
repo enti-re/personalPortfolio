@@ -1,9 +1,9 @@
 import React from "react";
-import { GitHub, Instagram, Linkedin, Twitter } from "react-feather";
+import { FileText, GitHub, Instagram, Linkedin, Twitter } from "react-feather";
 
 const Contact = ({ isDarkMode }: { isDarkMode: boolean }) => {
   return (
-    <div className="sm:w-full lg:pt-32 sm:justify-start flex flex-col items-left overflow-scroll gap-4 lg:w-[55%] lg:justify-start h-[700px] ">
+    <div className="sm:w-full lg:pt-8 sm:justify-start flex flex-col items-left overflow-scroll gap-4 lg:w-[55%] lg:justify-start h-[700px] ">
       {window.innerWidth < 1120 && <div className={`text-xl font-semibold -mb-2  ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Contact:</div>}
       <div>
         Contact me if you need a developer for any javascript work - React,
@@ -50,6 +50,14 @@ const Contact = ({ isDarkMode }: { isDarkMode: boolean }) => {
         >
           <a href="https://www.instagram.com/nikhil_chandna_/" target="_blank">
             <Instagram />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://shorturl.at/jsuAW" target="_blank">
+            <FileText size={"24px"} />
           </a>
         </div>
       </div>

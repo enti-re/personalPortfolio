@@ -3,6 +3,8 @@ import dynamic from "next/dynamic";
 import "../styles/global.css";
 import profilePic from "./../../public/dp.jpg";
 import { Sun } from "react-feather";
+import { GitHub, Instagram, Linkedin, Twitter,Mail,FileText } from "react-feather";
+
 
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
   ssr: false,
@@ -13,6 +15,7 @@ import About from "@/components/About";
 import Contact from "@/components/Contact";
 import EntryLoader from "@/components/EntryLoader";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 
 const HomePage = () => {
   const { systemTheme } = useTheme();
@@ -20,9 +23,12 @@ const HomePage = () => {
   const [navigation, setNavigation] = useState("about");
   const [loader, setLoder] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [showHeader,setShowHeader] = useState(true)
 
   useEffect(() => {
     window.addEventListener("scroll", function (event) {
+      if(this.window.scrollY <200) setShowHeader(true)
+      else setShowHeader(false);
       if (this.window.scrollY < 400) setNavigation("about");
       if (this.window.scrollY > 400) setNavigation("experience");
       if (this.window.scrollY > 1000) setNavigation("projects");
@@ -74,11 +80,8 @@ const HomePage = () => {
     );
   }
   return (
-    <div
-      className={`flex flex-col lg:flex-row sm:justify-start px-4 md:px-36 pt-16 lg:gap-56 ml-100 items-start ${isDarkMode ? "bg-black text-gray-400" : "bg-white text-[#6f6f6f]"
-        }`}
-    >
-      {window.innerWidth > 540 && (
+    <>
+     {window.innerWidth > 810 && (
         <AnimatedCursor
           color={isDarkMode ? "255, 255, 255" : "58, 58, 58"}
           innerSize={8}
@@ -96,6 +99,7 @@ const HomePage = () => {
             "select",
             "textarea",
             "button",
+            ".writing",
             ".link",
           ]}
           outerStyle={{
@@ -103,9 +107,13 @@ const HomePage = () => {
           }}
         />
       )}
-      <div className="lg:fixed flex lg:mt-40 flex-col lg:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
+      {showHeader && <header className="flex flex-row fixed top-10 left-10 gap-4 justify-end mx-40 w-[80%]">
+       {/* <div className={`writing ${isDarkMode ? "text-white" : "text-[#3A3A3A]"
+            }`}  style={{
+        textDecoration: "underline"
+       }}><Link href="/writings">Writings</Link></div> */}
         <button
-          className={`fixed top-4 right-8 ${isDarkMode ? "text-white" : "text-[#3A3A3A]"
+          className={`${isDarkMode ? "text-white" : "text-[#3A3A3A]"
             }`}
           onClick={() => {
             setIsDarkMode(!isDarkMode);
@@ -113,6 +121,14 @@ const HomePage = () => {
         >
           <Sun />
         </button>
+      </header>}
+    <div
+      className={`flex flex-col lg:flex-row sm:justify-start px-2 md:px-36 lg:px-24 pt-16 lg:gap-100 ml-100 items-start ${isDarkMode ? "bg-black text-gray-400" : "bg-white text-[#6f6f6f]"
+        }`}
+    >
+     
+    
+      <div className="lg:fixed flex lg:mt-40 flex-col lg:w-[35%] justify-start sm:items-center lg:items-start gap-6 overflow-hidden">
         <div className="text-6xl flex flex-row gap-4">
           <img
             width={"180px"}
@@ -128,14 +144,56 @@ const HomePage = () => {
               Nikhil Chandna
             </div>
             <div
-              className={`text-lg md:text-xl ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+              className={`text-lg md:text-xl pl-2 ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
                 } `}
             >
               Software Engineer
             </div>
+           {window.innerWidth<1400 && <div className="flex flex-row gap-3 pl-2 pt-1">
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://twitter.com/Nikhil51707080" target="_blank">
+            <Twitter size={"18px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://www.linkedin.com/in/nikhil-chandna-3159631b5/" target="_blank">
+            <Linkedin size={"20px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://github.com/enti-re" target="_blank">
+            <GitHub size={"20px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://www.instagram.com/nikhil_chandna_/" target="_blank">
+            <Instagram size={"20px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://www.instagram.com/nikhil_chandna_/" target="_blank">
+            <Mail size={"20px"} />
+          </a>
+        </div>
+      </div>}
           </div>
         </div>
-        {window.innerWidth > 1120 && <div className="flex sm:flex-row sm:justify-center lg:flex-col items-start gap-2">
+        {window.innerWidth > 1400 && <div className="flex sm:flex-row sm:justify-center lg:flex-col items-start gap-2">
           <a
             href="#"
             className={`${navigation === "about"
@@ -153,7 +211,7 @@ const HomePage = () => {
               }, 2000);
             }}
           >
-            - About
+            {navigation==="about" ? "______About ": "___About"}
           </a>
           <a
             className={`${navigation === "experience"
@@ -171,7 +229,7 @@ const HomePage = () => {
               }, 2000);
             }}
           >
-            - Experience
+            {navigation==="experience" ? "______Experience ": "___Experience"}
           </a>
           <a
             className={`${navigation === "projects"
@@ -189,9 +247,9 @@ const HomePage = () => {
               }, 2000);
             }}
           >
-            - Projects
+            {navigation==="projects" ? "______Projects ": "___Projects"}
           </a>
-          <a
+          {/* <a
             className={`${navigation === "contact"
               ? isDarkMode
                 ? "text-white  text-lg"
@@ -207,9 +265,61 @@ const HomePage = () => {
               }, 2000);
             }}
           >
-            - Contact
-          </a>
+            {navigation==="contact" ? "______Contact ": "___Contact"}
+          </a> */}
         </div>}
+       {window.innerWidth>1400 &&  <div className="flex flex-col gap-3 pt-56"> 
+        <div className="flex flex-row gap-3">
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://twitter.com/Nikhil51707080" target="_blank">
+            <Twitter color={isDarkMode ? "#fff" : "#6F6F6F"} size={"24px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://www.linkedin.com/in/nikhil-chandna-3159631b5/" target="_blank">
+            <Linkedin color={isDarkMode ? "#fff" : "#6F6F6F"} size={"24px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://github.com/enti-re" target="_blank">
+            <GitHub color={isDarkMode ? "#fff" : "#6F6F6F"} size={"24px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://www.instagram.com/nikhil_chandna_/" target="_blank">
+            <Instagram color={isDarkMode ? "#fff" : "#6F6F6F"} size={"24px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://mail.google.com/mail/?view=cm&to=chandnanikhil833@gmail.com" target="_blank">
+            <Mail color={isDarkMode ? "#fff" : "#6F6F6F"} size={"24px"} />
+          </a>
+        </div>
+        <div
+          className={`cursor-pointer ${isDarkMode ? "text-slate-200" : "text-[#3A3A3A]"
+            } `}
+        >
+          <a href="https://shorturl.at/jsuAW" target="_blank">
+            <FileText color={isDarkMode ? "#fff" : "#6F6F6F"} size={"24px"} />
+          </a>
+        </div>
+        </div>
+      </div>}
       </div>
       {/* <div className="sm:w-full lg:w-[55%] overflow-scroll"> */}
       {/* {page === "loader" && <Loader />} */}
@@ -217,9 +327,10 @@ const HomePage = () => {
         {<About isDarkMode={isDarkMode} />}
         {<Experience isDarkMode={isDarkMode} />}
         {<Projects isDarkMode={isDarkMode} />}
-        {<Contact isDarkMode={isDarkMode} />}
+        {/* {<Contact isDarkMode={isDarkMode} />} */}
       </div>
     </div>
+    </>
   );
 };
 
