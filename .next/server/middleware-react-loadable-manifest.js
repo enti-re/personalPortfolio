@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"Home.tsx -> react-animated-cursor\":{\"id\":\"Home.tsx -> react-animated-cursor\",\"files\":[\"static/chunks/node_modules_react-animated-cursor_dist_index_umd_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"
