@@ -8,6 +8,7 @@ import { useState } from "react"
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("about")
+  const [selectedProject, setSelectedProject] = useState<string | null>(null)
 
   return (
     <div className="min-h-screen flex flex-col antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
@@ -43,35 +44,123 @@ export default function Home() {
 
             {activeSection === "projects" && (
               <section className="pl-6">
-                <ul className="space-y-5">
-                  {projects.map((project) => (
-                    <li key={project.slug} className="group">
-                      <Link href={`/projects/${project.slug}`} className="flex items-baseline">
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          {project.title}
+                {selectedProject ? (
+                  <div>
+                    {/* Breadcrumb Navigation */}
+                    <nav className="mb-8">
+                      <div className="flex items-center space-x-2 text-sm text-neutral-500 dark:text-neutral-400">
+                        <button 
+                          onClick={() => setSelectedProject(null)}
+                          className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
+                        >
+                          Projects
+                        </button>
+                        <span>›</span>
+                        <span className="text-neutral-900 dark:text-neutral-100">
+                          {projects.find(p => p.slug === selectedProject)?.title}
                         </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                      </div>
+                    </nav>
+
+                    {/* Project Details */}
+                    {(() => {
+                      const project = projects.find(p => p.slug === selectedProject)
+                      if (!project) return null
+
+                      return (
+                        <div className="space-y-6">
+                          <div className="flex items-center space-x-4 text-sm text-neutral-500 dark:text-neutral-400">
+                            <span>{project.year}</span>
+                            <span>•</span>
+                            <div className="flex flex-wrap gap-2">
+                              {project.tags.map((tag) => (
+                                <span 
+                                  key={tag}
+                                  className="px-2 py-1 bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 rounded-lg text-xs"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="space-y-6">
+                            {/* Description */}
+                            <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                              {project.description}
+                            </p>
+                            
+                            {/* Project Link */}
+                            {(project.slug === "supplier-platform-ads" || project.slug === "eazyupdate") && (
+                              <div className="pt-4">
+                                <Link 
+                                  href={project.slug === "supplier-platform-ads" ? "https://supplier.meesho.com/ads" : "https://eazyupdates.com/"}
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300"
+                                >
+                                  View Project →
+                                </Link>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })()}
+                  </div>
+                ) : (
+                  <ul className="space-y-5">
+                    {projects.map((project) => (
+                      <li key={project.slug} className="group">
+                        <button 
+                          onClick={() => setSelectedProject(project.slug)}
+                          className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+                        >
+                          <span className="flex-1">
+                            {project.title}
+                          </span>
+                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </section>
             )}
 
             {activeSection === "writings" && (
               <section className="pl-6">
-                <ul className="space-y-5">
-                  {writings.map((writing) => (
-                    <li key={writing.slug} className="group">
-                      <Link href={`/writings/${writing.slug}`} className="flex items-baseline">
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          {writing.title}
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">{writing.date}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                {writings.length > 0 ? (
+                  <ul className="space-y-5">
+                    {writings.map((writing) => (
+                      <li key={writing.slug} className="group">
+                        <Link href={`/writings/${writing.slug}`} className="flex items-baseline">
+                          <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                            {writing.title}
+                          </span>
+                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">{writing.date}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="flex flex-col items-center justify-start pt-6 text-center">
+                    <div className="max-w-md mx-auto space-y-4">
+                      <h3 className="text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                        No articles yet
+                      </h3>
+                      <p className="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
+                        I'm working on some interesting pieces. Check back soon for insights on development, design, and technology.
+                      </p>
+                      <div className="pt-2">
+                        <div className="inline-flex items-center space-x-2 text-xs text-neutral-400 dark:text-neutral-500 bg-neutral-50 dark:bg-neutral-800 px-3 py-1.5 rounded-full">
+                          <div className="w-1.5 h-1.5 bg-neutral-400 dark:bg-neutral-500 rounded-full animate-pulse"></div>
+                          <span>Coming soon</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </section>
             )}
 
@@ -195,8 +284,8 @@ function NavLink({ active, onClick, children }: NavLinkProps) {
 // Updated data with slugs for routing
 const projects = [
   {
-    title: "Supplier Platform Ads",
-    description: "Advanced advertising platform for supplier management and campaign optimization.",
+    title: "Supplier Platform Ads: Meesho",
+    description: "Developed the Advertisement Panel for Meesho's Supplier Platform, empowering suppliers to create and manage targeted advertising campaigns. Built comprehensive campaign creation tools where suppliers can select product catalogs, set cost-per-click (CPC) rates, define budgets and durations. Implemented real-time analytics dashboard for monitoring campaign performance, conversion tracking, and ROI optimization. The panel provides suppliers with actionable insights to maximize their product visibility and sales on the platform.",
     tags: ["React", "TypeScript", "Node.js"],
     slug: "supplier-platform-ads",
     year: "2024-25",
@@ -217,32 +306,15 @@ const projects = [
   },
   {
     title: "EazyUpdate",
-    description: "Streamlined update management system for efficient software deployment and version control.",
-    tags: ["Update Management", "Deployment", "Version Control"],
+    description: "Developed a comprehensive update management platform that streamlines software deployment and version control processes. Built a React-based frontend with TypeScript for type safety and vanilla CSS for custom styling. The platform enables development teams to create, manage, and distribute software updates efficiently. Implemented features for automated update deployment, rollback capabilities, and real-time deployment tracking. The system provides teams with centralized control over their software release cycles, reducing deployment complexity and improving development workflow efficiency.",
+    tags: ["React", "TypeScript", "Vanilla CSS"],
     slug: "eazyupdate",
     year: "2022-23",
   },
 ]
 
 const writings = [
-  {
-    title: "The Value of Minimalism in Digital Design",
-    description: "Exploring how reduction can lead to more meaningful user experiences.",
-    date: "May 2023",
-    slug: "minimalism-in-digital-design",
-  },
-  {
-    title: "Typography as Interface",
-    description: "How thoughtful typography choices can improve usability and readability.",
-    date: "Mar 2023",
-    slug: "typography-as-interface",
-  },
-  {
-    title: "Designing with Intention",
-    description: "Creating products that align with user needs and business goals.",
-    date: "Jan 2023",
-    slug: "designing-with-intention",
-  },
+  // Temporarily empty to test the "coming soon" design
 ]
 
 const fallbackBooks = [
