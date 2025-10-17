@@ -31,8 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <div className="font-sans bg-white dark:bg-[#111010] text-[#111010] dark:text-[#FFFCF9]">
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <div className="font-sans bg-white dark:bg-[#111010] text-[#111010] dark:text-[#FFFCF9] text-[15px]">
           <Component {...pageProps} />
         </div>
       </ThemeProvider>
