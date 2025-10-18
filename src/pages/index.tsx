@@ -198,6 +198,8 @@ export default function Home() {
                     Currently building products at{" "}
                     <Link
                       href="https://meesho.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
                     >
                       Meesho
@@ -205,6 +207,8 @@ export default function Home() {
                     . Previously at{" "}
                     <Link
                       href="https://zopsmart.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
                     >
                       Zopsmart
@@ -232,21 +236,27 @@ export default function Home() {
         <div className="max-w-[900px] mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-start md:items-center">
           <div className="flex space-x-5 mb-4 md:mb-0">
             <Link
-              href="https://twitter.com/yourusername"
+              href="https://x.com/nikhilchandna01"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
             >
               <X className="h-4 w-4" />
               <span className="sr-only">X (Twitter)</span>
             </Link>
             <Link
-              href="https://github.com/yourusername"
+              href="https://github.com/enti-re"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
             >
               <Github className="h-4 w-4" />
               <span className="sr-only">GitHub</span>
             </Link>
             <Link
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/nikhilchandna01/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
             >
               <Linkedin className="h-4 w-4" />
