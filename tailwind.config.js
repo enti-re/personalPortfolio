@@ -53,6 +53,15 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        "blink-green-white": {
+          "0%, 100%": { backgroundColor: "rgb(74 222 128)" }, // Tailwind's green-400
+          "50%": { backgroundColor: "rgb(255 255 255)" }, // White
+        },
+      },
+      animation: {
+        "blink-green-white": "blink-green-white 1.5s infinite",
+      },
     },
   },
   plugins: [],

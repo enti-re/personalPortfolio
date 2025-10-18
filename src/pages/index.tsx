@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 import Link from "next/link"
@@ -154,7 +154,7 @@ export default function Home() {
                       </p>
                       <div className="pt-2">
                         <div className="inline-flex items-center space-x-2 text-xs text-neutral-400 dark:text-neutral-500 bg-neutral-50 dark:bg-neutral-800 px-3 py-1.5 rounded-full">
-                          <div className="w-1.5 h-1.5 bg-neutral-400 dark:bg-neutral-500 rounded-full animate-pulse"></div>
+                          <div className="w-1.5 h-1.5 rounded-full animate-blink-green-white"></div>
                           <span>Coming soon</span>
                         </div>
                       </div>

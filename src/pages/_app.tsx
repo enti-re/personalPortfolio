@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import { ThemeProvider } from "../components/theme-provider"
-import "../app/styles/globals.css"
+import "../styles/global.css"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <div className="font-sans bg-white dark:bg-[#111010] text-[#111010] dark:text-[#FFFCF9] text-[15px]">
+        <div className="font-sans bg-white dark:bg-[#111010] text-[#111010] dark:text-[#FFFCF9] text-[15px] cursor-dot">
           <Component {...pageProps} />
         </div>
       </ThemeProvider>
