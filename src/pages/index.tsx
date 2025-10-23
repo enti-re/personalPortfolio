@@ -133,11 +133,9 @@ export default function Home() {
               <NavLink active={activeSection === "books"} onClick={() => setActiveSection("books")}>
                 Books
               </NavLink>
-              {isLocalhost && (
-                <NavLink active={activeSection === "visualization"} onClick={() => setActiveSection("visualization")}>
-                  Visualization
+              <NavLink active={activeSection === "visualization"} onClick={() => setActiveSection("visualization")}>
+                Visualization
                 </NavLink>
-              )}
             </nav>
           </div>
 
@@ -268,7 +266,7 @@ export default function Home() {
               </section>
             )}
 
-            {isLocalhost && activeSection === "visualization" && (
+            {activeSection === "visualization" && (
               <section className="pl-6">
                 {selectedAnimation ? (
                   <div>
