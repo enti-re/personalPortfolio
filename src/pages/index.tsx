@@ -2,13 +2,37 @@
 
 import type React from "react"
 import Link from "next/link"
-import { Github, Linkedin, X } from "lucide-react"
+import { Github, Linkedin, X, Code, Palette, Zap } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
-import { useState } from "react"
+import { AnimatedCard } from "../components/AnimatedCard"
+import { useState, useEffect } from "react"
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("about")
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
+  const [isLocalhost, setIsLocalhost] = useState<boolean>(false)
+  
+  // Demo state for Activity vs Conditional rendering
+  const [isToggleOn, setIsToggleOn] = useState<boolean>(true)
+  const [circleData, setCircleData] = useState<string>('')
+  const [hasToggledOff, setHasToggledOff] = useState<boolean>(false)
+  
+  // Check if we're on localhost after component mounts (client-side only)
+  useEffect(() => {
+    setIsLocalhost(window.location.hostname === 'localhost')
+  }, [])
+
+  // Handle toggle with demo behavior
+  const handleToggle = () => {
+    if (isToggleOn) {
+      // Turning off - simulate conditional rendering behavior
+      setHasToggledOff(true)
+      setIsToggleOn(false)
+    } else {
+      // Turning on - simulate Activity behavior
+      setIsToggleOn(true)
+    }
+  }
 
   return (
     <div className="min-h-screen flex flex-col antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
@@ -34,6 +58,11 @@ export default function Home() {
               <NavLink active={activeSection === "books"} onClick={() => setActiveSection("books")}>
                 Books
               </NavLink>
+              {isLocalhost && (
+                <NavLink active={activeSection === "animations"} onClick={() => setActiveSection("animations")}>
+                  Animations
+                </NavLink>
+              )}
             </nav>
           </div>
 
@@ -170,14 +199,90 @@ export default function Home() {
                   {fallbackBooks.map((book) => (
                     <li key={book.id} className="group">
                       <Link href={`/books/${book.id}`} className="flex items-baseline">
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          {book.title}
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">{book.year}</span>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3">
+                            <span className="group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                              {book.title}
+                            </span>
+                            {book.status === "currently-reading" && (
+                              <span className="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-xs rounded-full font-normal">
+                                Now
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+                            {book.author}
+                          </div>
+                        </div>
+                        <div className="ml-4">
+                          <span className="text-neutral-400 text-sm tabular-nums">{book.year}</span>
+                        </div>
                       </Link>
                     </li>
                   ))}
                 </ul>
+              </section>
+            )}
+
+            {isLocalhost && activeSection === "animations" && (
+              <section className="pl-6">
+                <div className="space-y-8">
+                  <div>
+                    <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-6">
+                      React Activity Demo
+                    </h2>
+                  </div>
+                  
+                  {/* Toggle Demo */}
+                  <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden max-w-sm mx-auto">
+                    <div className="p-6">
+                      {/* Toggle Button */}
+                      <div className="flex items-center justify-center mb-6">
+                        <button
+                          onClick={handleToggle}
+                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-500 ease-in-out focus:outline-none ${
+                            isToggleOn ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-200 dark:bg-neutral-700'
+                          }`}
+                        >
+                          <span
+                            className={`inline-block h-4 w-4 transform rounded-full transition-all duration-500 ease-in-out ${
+                              isToggleOn 
+                                ? 'translate-x-6 bg-white dark:bg-neutral-900 shadow-lg scale-110' 
+                                : 'translate-x-1 bg-white dark:bg-neutral-300 scale-100'
+                            }`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Circle and Input Area */}
+                      <div className="flex flex-col items-center justify-center py-8 space-y-6">
+                        {isToggleOn ? (
+                          <div className="flex flex-col items-center space-y-6 animate-in fade-in duration-300">
+                            {/* Circle */}
+                            <div className="w-14 h-14 bg-neutral-900 dark:bg-neutral-100 rounded-full shadow-lg animate-in zoom-in duration-500"></div>
+                            
+                            {/* Input for circle data */}
+                            <div className="w-56">
+                              <input 
+                                type="text" 
+                                value={circleData}
+                                onChange={(e) => setCircleData(e.target.value)}
+                                placeholder="Type something..."
+                                className="w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-neutral-900 dark:text-neutral-100 text-center text-sm focus:outline-none transition-all duration-300 placeholder-neutral-500 dark:placeholder-neutral-400 animate-in slide-in-from-bottom duration-400 delay-200"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center space-y-6 animate-out fade-out duration-300">
+                            {/* Empty Circle */}
+                            
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </section>
             )}
 
@@ -323,24 +428,31 @@ const projects = [
   },
 ]
 
-const writings = [
+interface Writing {
+  title: string
+  slug: string
+  date: string
+}
+
+const writings: Writing[] = [
   // Temporarily empty to test the "coming soon" design
 ]
 
 const fallbackBooks = [
   {
-    id: "the-power-of-now",
-    title: "The Power of Now",
-    author: "Eckhart Tolle",
-    year: "2021",
-    categories: ["Spirituality", "Self-Help"],
+    id: "crucial-conversations",
+    title: "Crucial Conversations",
+    author: "Kerry Patterson, Joseph Grenny, Ron McMillan, Al Switzler",
+    year: "2025",
+    categories: ["Self-Help", "Communication"],
+    status: "currently-reading",
   },
   {
-    id: "almanack-of-naval-ravikant",
-    title: "Almanack of Naval Ravikant",
-    author: "Eric Jorgenson",
-    year: "2022",
-    categories: ["Philosophy", "Business"],
+    id: "subtle-art-of-not-giving-a-fuck",
+    title: "The Subtle Art of Not Giving a F*ck",
+    author: "Mark Manson",
+    year: "2024",
+    categories: ["Self-Help"],
   },
   {
     id: "atomic-habits",
@@ -350,10 +462,17 @@ const fallbackBooks = [
     categories: ["Self-Help", "Productivity"],
   },
   {
-    id: "subtle-art-of-not-giving-a-fuck",
-    title: "The Subtle Art of Not Giving a F*ck",
-    author: "Mark Manson",
-    year: "2024",
-    categories: ["Self-Help"],
+    id: "almanack-of-naval-ravikant",
+    title: "Almanack of Naval Ravikant",
+    author: "Eric Jorgenson",
+    year: "2022",
+    categories: ["Philosophy", "Business"],
+  },
+  {
+    id: "the-power-of-now",
+    title: "The Power of Now",
+    author: "Eckhart Tolle",
+    year: "2021",
+    categories: ["Spirituality", "Self-Help"],
   },
 ]
