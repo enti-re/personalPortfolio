@@ -7,4 +7,5 @@ export interface Book {
   notes?: string
   link?: string
   rating?: number
+  status?: 'read' | 'currently-reading' | 'to-read'
 }
