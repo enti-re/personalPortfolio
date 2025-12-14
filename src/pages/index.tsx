@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import { Github, Linkedin, X, Code, Palette, Zap } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
 import { AnimatedCard } from "../components/AnimatedCard"
+import { MCPVisualization } from "../components/MCPVisualization"
 import { useState, useEffect } from "react"
 
 export default function Home() {
@@ -284,7 +285,8 @@ export default function Home() {
                         </button>
                         <span>›</span>
                         <span className="text-neutral-900 dark:text-neutral-100">
-                          {selectedAnimation === 'activity-tag' ? 'React 19 Activity Component' : ''}
+                          {selectedAnimation === 'activity-tag' ? 'React 19 Activity Component' : 
+                           selectedAnimation === 'mcp-flow' ? 'MCP Data Flow Visualization' : ''}
                               </span>
                           </div>
                     </nav>
@@ -452,6 +454,13 @@ export default function Home() {
                   </div>
                       </div>
                     )}
+
+                    {/* MCP Flow Visualization */}
+                    {selectedAnimation === 'mcp-flow' && (
+                      <div className="space-y-6">
+                        <MCPVisualization />
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <ul className="space-y-5">
@@ -467,6 +476,20 @@ export default function Home() {
                           React 19 Activity Component
                         </span>
                         <span className="ml-4 text-neutral-400 text-sm tabular-nums">Oct 2025</span>
+                      </button>
+                    </li>
+                    <li className="group">
+                      <button 
+                        onClick={() => {
+                          setSelectedAnimation('mcp-flow')
+                          window.history.pushState({}, '', '/visualization/mcp-flow')
+                        }}
+                        className="flex items-baseline w-full text-left cursor-pointer"
+                      >
+                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                          MCP Data Flow Visualization
+                        </span>
+                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Dec 2024</span>
                       </button>
                     </li>
                   </ul>

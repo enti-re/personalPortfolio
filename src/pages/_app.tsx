@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-        <div className="font-sans bg-white dark:bg-[#111010] text-[#111010] dark:text-[#FFFCF9] text-[15px] cursor-dot">
+        <div className="font-sans bg-white dark:bg-[#111010] text-[#111010] dark:text-[#FFFCF9] text-[15px] cursor-dot transition-colors duration-300">
           <Component {...pageProps} />
         </div>
       </ThemeProvider>
