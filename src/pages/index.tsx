@@ -8,9 +8,13 @@ import { ThemeToggle } from "../components/theme-toggle"
 import { AnimatedCard } from "../components/AnimatedCard"
 import { MCPVisualization } from "../components/MCPVisualization"
 import { useState, useEffect } from "react"
+import dynamic from 'next/dynamic'
+
+const HoverPill = dynamic(() => import('../components/HoverPill').then(mod => ({ default: mod.HoverPill })), { 
+  ssr: false 
+})
 
 export default function Home() {
-  const router = useRouter()
   const [activeSection, setActiveSection] = useState<string>("about")
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [selectedBook, setSelectedBook] = useState<string | null>(null)
@@ -601,23 +605,27 @@ export default function Home() {
                   </p>
                   <p>
                     Currently building products at{" "}
-                    <Link
-                      href="https://meesho.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
-                    >
-                      Meesho
-                    </Link>
+                    <HoverPill pillText="Visit Meesho">
+                      <Link
+                        href="https://meesho.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors hover:text-pink-500"
+                      >
+                        Meesho
+                      </Link>
+                    </HoverPill>
                     . Previously at{" "}
-                    <Link
-                      href="https://zopsmart.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
-                    >
-                      Zopsmart
-                    </Link>
+                    <HoverPill pillText="Visit Zopsmart" color="cyan">
+                      <Link
+                        href="https://zopsmart.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
+                      >
+                        Zopsmart
+                      </Link>
+                    </HoverPill>
                     .
                   </p>
                   <p>
