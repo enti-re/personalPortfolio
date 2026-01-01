@@ -255,5 +255,5 @@ body {
 }
 
 .animate-reveal {
-  animation: reveal 3000ms ease-out forwards;
+  animation: reveal 1000ms ease-out forwards;
 }
