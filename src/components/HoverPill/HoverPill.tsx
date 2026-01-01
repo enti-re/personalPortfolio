@@ -38,13 +38,13 @@ export function HoverPill({ children, pillText, color = 'pink' }: HoverPillProps
 
   return (
     <span 
-      className="relative inline-block shadow-xl shad"
+      className="relative inline-block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {children}
       <motion.div
-        className={`shadow-xl absolute bottom-full  -translate-x-1/2 mb-1 px-3 py-1 rounded-md ${colors.bg} border ${colors.border} ${colors.text} text-xs font-medium whitespace-nowrap pointer-events-none z-10 backdrop-blur-lg`}
+        className={`absolute bottom-full  -translate-x-1/2 mb-1 px-3 py-1 rounded-md ${colors.bg} border ${colors.border} ${colors.text} text-xs font-medium whitespace-nowrap pointer-events-none z-10 backdrop-blur-lg`}
         initial={{ opacity: 0, y: 3 }}
         animate={{
           opacity: isHovered ? 1 : 0,
