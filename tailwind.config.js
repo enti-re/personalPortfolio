@@ -62,6 +62,13 @@ module.exports = {
       animation: {
         "blink-green-white": "blink-green-white 1.5s infinite",
       },
+      gridTemplateColumns: {
+        '20': 'repeat(20, minmax(0, 1fr))',
+        '15': 'repeat(15, minmax(0, 1fr))',
+      },
+      borderWidth: {
+        'thin': '0.5px',
+      }
     },
   },
   plugins: [],

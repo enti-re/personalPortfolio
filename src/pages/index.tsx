@@ -1,24 +1,70 @@
-
-
 import type React from "react"
 import Link from "next/link"
-import { useRouter } from "next/router"
-import { Github, Linkedin, X, Code, Palette, Zap } from "lucide-react"
+import { Github, Linkedin, X } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
-import { AnimatedCard } from "../components/AnimatedCard"
-import { MCPVisualization } from "../components/MCPVisualization"
+import { MCPVisualization } from "../components/MCPVisualization";
+import HoverGrid from '../components/HoverGrid';
 import { useState, useEffect } from "react"
-import dynamic from 'next/dynamic'
+import About from "../components/About";
+import Name from "../components/Name";
+import Sidebar from "../components/Sidebar";
 
-const HoverPill = dynamic(() => import('../components/HoverPill').then(mod => ({ default: mod.HoverPill })), { 
-  ssr: false 
-})
+const projects = [
+  {
+    title: "Supplier Platform Ads: Meesho",
+    description: "Developed the Advertisement Panel for Meesho's Supplier Platform, empowering suppliers to create and manage targeted advertising campaigns. Built comprehensive campaign creation tools where suppliers can select product catalogs, set cost-per-click (CPC) rates, define budgets and durations. Implemented real-time analytics dashboard for monitoring campaign performance, conversion tracking, and ROI optimization. The panel provides suppliers with actionable insights to maximize their product visibility and sales on the platform.",
+    tags: ["React", "TypeScript", "Node.js"],
+    slug: "supplier-platform-ads",
+    year: "2024-25",
+  },
+  {
+    title: "Mcafee Key Generation Documentation",
+    description: "Comprehensive documentation system for Mcafee key generation processes and workflows.",
+    tags: ["Documentation", "Technical Writing", "Process Management"],
+    slug: "mcafee-key-gen-docs",
+    year: "2023-24",
+  },
+  {
+    title: "Mcafee Key Generation",
+    description: "Automated key generation system for Mcafee security products with advanced validation.",
+    tags: ["Automation", "Security", "Key Management"],
+    slug: "mcafee-key-generation",
+    year: "2023-24",
+  },
+  {
+    title: "EazyUpdate",
+    description: "Developed a comprehensive update management platform that streamlines software deployment and version control processes. Built a React-based frontend with TypeScript for type safety and vanilla CSS for custom styling. The platform enables development teams to create, manage, and distribute software updates efficiently. Implemented features for automated update deployment, rollback capabilities, and real-time deployment tracking. The system provides teams with centralized control over their software release cycles, reducing deployment complexity and improving development workflow efficiency.",
+    tags: ["React", "TypeScript", "Vanilla CSS"],
+    slug: "eazyupdate",
+    year: "2022-23",
+  },
+]
+
+interface Writing {
+  title: string
+  slug: string
+  date: string
+}
+
+const writings: Writing[] = [
+  // Temporarily empty to test the "coming soon" design
+]
+
+const fallbackBooks = [
+  {
+    id: "crucial-conversations",
+    title: "Crucial Conversations",
+    author: "Kerry Patterson, Joseph Grenny, Ron McMillan, Al Switzler",
+    year: "2025",
+    categories: ["Self-Help", "Communication"],
+    status: "currently-reading",
+  }
+]
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("about")
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [selectedBook, setSelectedBook] = useState<string | null>(null)
-  const [isLocalhost, setIsLocalhost] = useState<boolean>(false)
   
   // Centralized toggle state
   const [isToggleOn, setIsToggleOn] = useState<boolean>(false)
@@ -37,8 +83,6 @@ export default function Home() {
   
   // Check if we're on localhost after component mounts (client-side only)
   useEffect(() => {
-    setIsLocalhost(window.location.hostname === 'localhost')
-    
     // Check URL for visualization route on initial load
     const pathname = window.location.pathname
     if (pathname.startsWith('/visualization/')) {
@@ -119,29 +163,8 @@ export default function Home() {
       <div className="max-w-[900px] mx-auto px-8 py-20 w-full flex-grow">
         <header className="mb-16 flex flex-col md:flex-row">
           <div className="md:w-40 mb-8 md:mb-0">
-            <div className="flex items-center justify-between mb-10">
-              <div className="text-base font-medium">Nikhil Chandna</div>
-              <div className="md:hidden">
-                <ThemeToggle />
-              </div>
-            </div>
-            <nav className="flex md:flex-col space-x-6 md:space-x-0 md:space-y-3">
-              <NavLink active={activeSection === "about"} onClick={() => setActiveSection("about")}>
-                About
-              </NavLink>
-              <NavLink active={activeSection === "projects"} onClick={() => setActiveSection("projects")}>
-                Projects
-              </NavLink>
-              <NavLink active={activeSection === "writings"} onClick={() => setActiveSection("writings")}>
-                Writings
-              </NavLink>
-              <NavLink active={activeSection === "books"} onClick={() => setActiveSection("books")}>
-                Books
-              </NavLink>
-              <NavLink active={activeSection === "visualization"} onClick={() => setActiveSection("visualization")}>
-                Visualization
-                </NavLink>
-            </nav>
+            <Name />
+            <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
           <main className="md:flex-1 md:pl-16 border-l border-neutral-100 dark:border-neutral-800">
@@ -149,7 +172,11 @@ export default function Home() {
               <ThemeToggle />
             </div>
 
-            {activeSection === "projects" && (
+            <div className={activeSection === "about" ? "" : "hidden"}>
+              <About />
+            </div>
+
+            <div className={activeSection === "projects" ? "" : "hidden"}>
               <section className="pl-6">
                 {selectedProject ? (
                   <div>
@@ -233,9 +260,9 @@ export default function Home() {
                   </ul>
                 )}
               </section>
-            )}
+            </div>
 
-            {activeSection === "writings" && (
+            <div className={activeSection === "writings" ? "" : "hidden"}>
               <section className="pl-6">
                 {writings.length > 0 ? (
                   <ul className="space-y-5">
@@ -269,9 +296,9 @@ export default function Home() {
                   </div>
                 )}
               </section>
-            )}
+            </div>
 
-            {activeSection === "visualization" && (
+            <div className={activeSection === "visualization" ? "" : "hidden"}>
               <section className="pl-6">
                 {selectedAnimation ? (
                   <div>
@@ -290,7 +317,8 @@ export default function Home() {
                         <span>›</span>
                         <span className="text-neutral-900 dark:text-neutral-100">
                           {selectedAnimation === 'activity-tag' ? 'React 19 Activity Component' : 
-                           selectedAnimation === 'mcp-flow' ? 'MCP Data Flow Visualization' : ''}
+                           selectedAnimation === 'mcp-flow' ? 'MCP Data Flow Visualization' :
+                           selectedAnimation === 'hover-grid' ? 'Hover Grid' : ''}
                               </span>
                           </div>
                     </nav>
@@ -315,12 +343,12 @@ export default function Home() {
                     </h3>
                         <button
                           onClick={handleToggle}
-                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-500 ease-in-out focus:outline-none ${
+                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-500 ease-in-out focus:outline-none ${ 
                             isToggleOn ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-200 dark:bg-neutral-700'
                           }`}
                         >
                           <span
-                            className={`inline-block h-4 w-4 transform rounded-full transition-all duration-500 ease-in-out ${
+                            className={`inline-block h-4 w-4 transform rounded-full transition-all duration-500 ease-in-out ${ 
                               isToggleOn 
                                 ? 'translate-x-6 bg-white dark:bg-neutral-900 shadow-lg scale-110' 
                                 : 'translate-x-1 bg-white dark:bg-neutral-300 scale-100'
@@ -367,7 +395,7 @@ export default function Home() {
                                     onChange={(e) => setLeftInputValue(e.target.value)}
                                   onFocus={(e) => e.target.setSelectionRange(0, 0)}
                                   placeholder=""
-                                  className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${
+                                  className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${ 
                                       leftInputValue !== initialValue 
                                       ? 'text-green-600 dark:text-green-400' 
                                       : 'text-yellow-500 dark:text-yellow-400'
@@ -410,7 +438,7 @@ export default function Home() {
                           ) : (
                             /* Activity: Component is mounted, just toggle visibility */
                             <div 
-                              className={`w-56 transition-opacity duration-300 ${
+                              className={`w-56 transition-opacity duration-300 ${ 
                                 isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
                               }`}
                             >
@@ -420,7 +448,7 @@ export default function Home() {
                                 onChange={(e) => setRightInputValue(e.target.value)}
                                 onFocus={(e) => e.target.setSelectionRange(0, 0)}
                                 placeholder=""
-                                className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 ${
+                                className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${ 
                                   rightInputValue !== initialValue 
                                     ? 'text-green-600 dark:text-green-400' 
                                     : 'text-yellow-500 dark:text-yellow-400'
@@ -440,7 +468,7 @@ export default function Home() {
                       <code className="text-sm font-mono leading-relaxed">
                         <span className="text-blue-600 dark:text-blue-400">&lt;Activity</span>{" "}
                         <span className="text-neutral-500 dark:text-neutral-500">mode</span>
-                        <span className="text-neutral-500 dark:text-neutral-600">=&#123;</span>
+                        <span className="text-neutral-500 dark:text-neutral-600">=&amp;#123;</span>
                         <span className="text-neutral-600 dark:text-neutral-400">isVisible</span>{" "}
                         <span className="text-neutral-500 dark:text-neutral-600">?</span>{" "}
                         <span className="text-green-600 dark:text-green-400">"visible"</span>{" "}
@@ -463,6 +491,11 @@ export default function Home() {
                     {selectedAnimation === 'mcp-flow' && (
                       <div className="space-y-6">
                         <MCPVisualization />
+                      </div>
+                    )}
+                     {selectedAnimation === 'hover-grid' && (
+                      <div className="space-y-6">
+                        <HoverGrid />
                       </div>
                     )}
                   </div>
@@ -496,12 +529,26 @@ export default function Home() {
                         <span className="ml-4 text-neutral-400 text-sm tabular-nums">Dec 2024</span>
                       </button>
                     </li>
+                    <li className="group">
+                    <button 
+                        onClick={() => {
+                          setSelectedAnimation('hover-grid')
+                          window.history.pushState({}, '', '/visualization/hover-grid')
+                        }}
+                        className="flex items-baseline w-full text-left cursor-pointer"
+                      >
+                          <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                            Hover Grid
+                          </span>
+                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">Dec 2025</span>
+                      </button>
+                    </li>
                   </ul>
                 )}
               </section>
-            )}
-
-            {activeSection === "books" && (
+            </div>
+            
+            <div className={activeSection === "books" ? "" : "hidden"}>
               <section className="pl-6">
                 {selectedBook ? (
                   <div>
@@ -588,59 +635,7 @@ export default function Home() {
                 </ul>
                 )}
               </section>
-            )}
-
-            {activeSection === "about" && (
-              <section className="pl-6">
-                <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed">
-                  <p>
-                    I'm a javascript developer passionate about creating robust and scalable web applications. 
-                    My expertise spans across modern JavaScript frameworks, with a focus 
-                    on building intuitive user experiences and efficient systems.
-                  </p>
-                  <p>
-                    I specialize in JavaScript, TypeScript, CSS, D3 charts, Material UI, Redux, React, 
-                    Node.js and Express.js. I'm also proficient with modern development tools like 
-                    Cursor IDE and Gemini CLI for enhanced productivity.
-                  </p>
-                  <p>
-                    Currently building products at{" "}
-                    <HoverPill pillText="Visit Meesho">
-                      <Link
-                        href="https://meesho.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors hover:text-pink-500"
-                      >
-                        Meesho
-                      </Link>
-                    </HoverPill>
-                    . Previously at{" "}
-                    <HoverPill pillText="Visit Zopsmart" color="cyan">
-                      <Link
-                        href="https://zopsmart.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
-                      >
-                        Zopsmart
-                      </Link>
-                    </HoverPill>
-                    .
-                  </p>
-                  <p>
-                    Feel free to reach out at{" "}
-                    <Link
-                      href="mailto:chandnanikhil833@gmail.com"
-                      className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
-                    >
-                      chandnanikhil833@gmail.com
-                    </Link>{" "}
-                    for collaborations or just to say hi.
-                  </p>
-                </div>
-              </section>
-            )}
+            </div>
           </main>
         </header>
       </div>
@@ -682,77 +677,3 @@ export default function Home() {
     </div>
   )
 }
-
-interface NavLinkProps {
-  active: boolean
-  onClick: () => void
-  children: React.ReactNode
-}
-
-function NavLink({ active, onClick, children }: NavLinkProps) {
-  return (
-    <button
-      onClick={onClick}
-      className={`text-sm ${
-        active
-          ? "text-neutral-900 dark:text-neutral-100 font-medium"
-          : "text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300"
-      } transition-colors`}
-    >
-      {children}
-    </button>
-  )
-}
-
-// Updated data with slugs for routing
-const projects = [
-  {
-    title: "Supplier Platform Ads: Meesho",
-    description: "Developed the Advertisement Panel for Meesho's Supplier Platform, empowering suppliers to create and manage targeted advertising campaigns. Built comprehensive campaign creation tools where suppliers can select product catalogs, set cost-per-click (CPC) rates, define budgets and durations. Implemented real-time analytics dashboard for monitoring campaign performance, conversion tracking, and ROI optimization. The panel provides suppliers with actionable insights to maximize their product visibility and sales on the platform.",
-    tags: ["React", "TypeScript", "Node.js"],
-    slug: "supplier-platform-ads",
-    year: "2024-25",
-  },
-  {
-    title: "Mcafee Key Generation Documentation",
-    description: "Comprehensive documentation system for Mcafee key generation processes and workflows.",
-    tags: ["Documentation", "Technical Writing", "Process Management"],
-    slug: "mcafee-key-gen-docs",
-    year: "2023-24",
-  },
-  {
-    title: "Mcafee Key Generation",
-    description: "Automated key generation system for Mcafee security products with advanced validation.",
-    tags: ["Automation", "Security", "Key Management"],
-    slug: "mcafee-key-generation",
-    year: "2023-24",
-  },
-  {
-    title: "EazyUpdate",
-    description: "Developed a comprehensive update management platform that streamlines software deployment and version control processes. Built a React-based frontend with TypeScript for type safety and vanilla CSS for custom styling. The platform enables development teams to create, manage, and distribute software updates efficiently. Implemented features for automated update deployment, rollback capabilities, and real-time deployment tracking. The system provides teams with centralized control over their software release cycles, reducing deployment complexity and improving development workflow efficiency.",
-    tags: ["React", "TypeScript", "Vanilla CSS"],
-    slug: "eazyupdate",
-    year: "2022-23",
-  },
-]
-
-interface Writing {
-  title: string
-  slug: string
-  date: string
-}
-
-const writings: Writing[] = [
-  // Temporarily empty to test the "coming soon" design
-]
-
-const fallbackBooks = [
-  {
-    id: "crucial-conversations",
-    title: "Crucial Conversations",
-    author: "Kerry Patterson, Joseph Grenny, Ron McMillan, Al Switzler",
-    year: "2025",
-    categories: ["Self-Help", "Communication"],
-    status: "currently-reading",
-  }
-]

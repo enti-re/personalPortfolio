@@ -240,3 +240,20 @@ body {
 .animate-blink-green-white {
   animation: blink-green-white-dark 2s ease-in-out infinite;
 }
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal {
+  animation: reveal 1000ms ease-out forwards;
+}
