@@ -15,6 +15,10 @@ const nextConfig = {
         source: '/visualization/:slug',
         destination: '/',
       },
+      {
+        source: '/resume',
+        destination: '/resume.html',
+      },
     ]
   },
 }

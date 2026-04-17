@@ -10,6 +10,7 @@ import Name from "../components/Name";
 import Sidebar from "../components/Sidebar";
 import GradientCircle from "../components/GradientCircle";
 import FluidSphere from "../components/FluidSphere";
+import CompoundCube from "../components/CompoundCube";
 
 
 const projects = [
@@ -508,6 +509,11 @@ export default function Home() {
                         <FluidSphere />
                       </div>
                     )}
+                    {selectedAnimation === 'compound-cube' && (
+                      <div className="space-y-6 h-[600px]">
+                        <CompoundCube />
+                      </div>
+                    )}
 
                   </div>
                 ) : (
@@ -564,6 +570,20 @@ export default function Home() {
                       >
                         <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
                           Fluid Sphere
+                        </span>
+                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Jan 2026</span>
+                      </button>
+                    </li>
+                    <li className="group">
+                      <button
+                        onClick={() => {
+                          setSelectedAnimation('compound-cube')
+                          window.history.pushState({}, '', '/visualization/compound-cube')
+                        }}
+                        className="flex items-baseline w-full text-left cursor-pointer"
+                      >
+                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                          Compound Cube
                         </span>
                         <span className="ml-4 text-neutral-400 text-sm tabular-nums">Jan 2026</span>
                       </button>

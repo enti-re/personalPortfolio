@@ -21,6 +21,9 @@ export default function HoverGrid() {
     'bg-violet-400',
     'bg-green-300',
     'bg-emerald-300',
+    'bg-green-500',
+    'bg-lime-300',
+    'bg-teal-300',
     'bg-orange-300',
     'bg-amber-300',
   ];
@@ -41,7 +44,7 @@ export default function HoverGrid() {
           <div
             key={index}
             onMouseEnter={() => handleHover(index)}
-            className={`w-8 h-8 border-thin border-white ${squareColors[index]} transition-colors duration-200`}
+            className={`w-8 h-8 border-thin border-white dark:border-transparent ${squareColors[index]} transition-colors duration-200`}
           />
         ))}
       </div>

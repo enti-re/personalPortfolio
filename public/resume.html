@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhil Chandna,  Fullstack SWE</title>
+<script>
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme');
+      var isDark = theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    } catch (e) {}
+  })();
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg:             #ffffff;
+    --text-body:      #1a1a1a;
+    --text-primary:   #0f0f0f;
+    --text-secondary: #2a2a2a;
+    --text-md:        #444;
+    --text-muted-1:   #555;
+    --text-muted-2:   #666;
+    --text-muted-3:   #888;
+    --text-dim:       #aaa;
+    --text-subtle:    #ccc;
+    --border:         #e8e8e8;
+    --border-light:   #f0f0f0;
+    --surface:        #fafafa;
+  }
+
+  html.dark {
+    --bg:             #111010;
+    --text-body:      #e8e3de;
+    --text-primary:   #f5f0eb;
+    --text-secondary: #d0c8c0;
+    --text-md:        #b8b0a8;
+    --text-muted-1:   #999;
+    --text-muted-2:   #888;
+    --text-muted-3:   #777;
+    --text-dim:       #555;
+    --text-subtle:    #3a3a3a;
+    --border:         #252525;
+    --border-light:   #1c1c1c;
+    --surface:        #1a1a1a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-body);
+    background: var(--bg);
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 32px 36px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  header { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .header-name { font-size: 14px; font-weight: 500; letter-spacing: -0.2px; color: var(--text-primary); margin-bottom: 6px; }
+  .header-name span { color: var(--text-dim); font-weight: 400; margin: 0 6px; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px 20px; font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+  .links a { color: var(--text-dim); text-decoration: none; }
+  .links a:hover { color: var(--text-muted-1); text-decoration: underline; }
+
+  .summary {
+    font-size: 12.5px;
+    color: var(--text-md);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section { margin-bottom: 16px; }
+  .section-title { font-size: 9.5px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+
+  .job { margin-bottom: 14px; }
+  .job:last-child { margin-bottom: 0; }
+  .job-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; margin-bottom: 2px; }
+  .job-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .job-company { font-size: 13px; color: var(--text-muted-1); }
+  .job-company a { color: var(--text-muted-1); text-decoration: none; }
+  .job-dot { color: var(--text-subtle); margin: 0 6px; }
+  .job-meta { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+  .job-stack { font-size: 11.5px; color: var(--text-muted-3); font-style: italic; margin-bottom: 8px; margin-top: 2px; }
+
+  ul { padding-left: 14px; }
+  ul li { margin-bottom: 4px; font-size: 12.5px; color: var(--text-secondary); line-height: 1.55; }
+  ul li::marker { color: var(--text-subtle); font-size: 10px; }
+  strong { font-weight: 500; color: var(--text-primary); }
+
+  .sub-role { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+  .sub-role-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .sub-role-title { font-size: 12.5px; font-weight: 500; color: var(--text-muted-2); }
+  .sub-role-meta { font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .skill-label { font-size: 10.5px; font-weight: 500; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag { font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid var(--border); color: var(--text-muted-1); font-family: 'DM Mono', monospace; background: var(--surface); }
+
+  .skills-section { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; margin: 16px 0; }
+  .skill-row { display: flex; gap: 12px; align-items: baseline; }
+  .skill-row-label { font-size: 10px; font-weight: 500; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; min-width: 100px; flex-shrink: 0; }
+  .skill-row-value { font-size: 12.5px; color: var(--text-secondary); }
+
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .award { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .award-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--text-subtle); margin-top: 7px; flex-shrink: 0; }
+  .award-name { font-size: 12.5px; font-weight: 500; color: var(--text-primary); }
+  .award-sub { font-size: 11px; color: var(--text-muted-3); margin-top: 1px; }
+
+  .edu-title { font-size: 13.5px; font-weight: 500; color: var(--text-primary); }
+  .edu-school { font-size: 12.5px; color: var(--text-muted-2); }
+  .edu-meta { font-size: 11.5px; color: var(--text-dim); margin-top: 3px; }
+
+  .ats-keywords { position: absolute; left: -9999px; font-size: 1px; color: transparent; }
+</style>
+</head>
+<body>
+
+<div class="ats-keywords">
+TypeScript JavaScript React Node.js Express fullstack software engineer
+Redux RTK Next.js Tailwind CSS Webpack microfrontend monorepo module federation
+REST API Auth0 Redis caching performance optimization
+Jest React Testing Library Playwright E2E testing CI/CD Docker
+Atlassian Jira software engineer II SDE2 senior engineer
+system design scalable architecture cross-functional collaboration
+product thinking agile scrum team lead
+Claude Code Cursor Gemini CLI AI tools automation
+Sentry Grafana Mixpanel PagerDuty observability
+</div>
+
+<header>
+  <div class="header-name">Nikhil Chandna <span>·</span> Fullstack TypeScript Engineer <span>·</span> SDE2 <span>·</span> Bengaluru, India</div>
+  <div class="links">
+    <a href="mailto:chandnanikhil833@gmail.com">chandnanikhil833@gmail.com</a>
+    <span>+91 6377511566</span>
+    <a href="https://linkedin.com/in/nikhilchandna01" target="_blank">linkedin.com/in/nikhilchandna01</a>
+    <a href="https://github.com/enti-re" target="_blank">github.com/enti-re</a>
+    <a href="https://nikhilchandna.com" target="_blank">nikhilchandna.com</a>
+  </div>
+</header>
+
+<div class="summary">
+  Fullstack TypeScript engineer with 4 years building scalable, production-grade software. Led Meesho's Monetisation Team as SDE2,  shipping multiple microfrontend applications, driving major codebase improvements, and building AI-powered developer tools adopted org-wide. Looking to own features end-to-end at a TypeScript-first product company.
+</div>
+
+<div class="section">
+  <div class="section-title">Experience</div>
+
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <span class="job-title">SDE2,  Software Engineer II</span>
+        <span class="job-dot">·</span>
+        <span class="job-company"><a href="https://meesho.com" target="_blank">Meesho</a></span>
+      </div>
+      <div class="job-meta">Jul 2024 – Present · Bengaluru</div>
+    </div>
+    <div class="job-stack">Monetisation Team · React, TypeScript, Redux/RTK, Node.js, Microfrontend</div>
+    <ul>
+      <li><strong>Led and owned 3 microfrontend applications</strong> across the Ads platform,  generating significant seller revenue, coordinating across product, design & backend teams.</li>
+      <li>Drove a <strong>full Ads codebase rearchitecture</strong>,  HOC/prop drilling → Redux container pattern, proper folder structure, file limits, and Claude-powered coding guidelines org-wide.</li>
+      <li><strong>Migrated Node.js to Monorepo</strong> and <strong>upgraded Node v17 → v22 LTS</strong>,  improving build performance, dependency management, and platform maintainability.</li>
+      <li>Built a <strong>Claude Code + Playwright integration</strong> for AI-driven UI library migration, adopted across the engineering org.</li>
+      <li>Improved <strong>platform LCP from ~4.1s to ~3.3s</strong> through Web Vitals profiling & rendering optimisation across the Ads platform.</li>
+      <li>Built an <strong>AI-powered Figma-to-React pipeline</strong> using Cursor Rules and MCP, automating component scaffolding for the ads team.</li>
+      <li>Built <strong>cross-team Microfrontend plugins</strong>,  shared components and integrations used across multiple codebases with independent deployability.</li>
+      <li>Automated <strong>PR code reviews using Gemini CLI</strong>,  reduced inconsistencies and improved code quality org-wide.</li>
+      <li>Delivered <strong>sale-critical revenue features</strong> under tight deadlines,  ROI Bidding, Budget Upsell, GMV Max revamp. Awarded <strong>Star Performer of the Quarter</strong>.</li>
+      <li>Built <strong>Playwright E2E test suite</strong> with Claude-assisted generation, grew <strong>unit test coverage to 90%</strong> with RTL and Jest. On-call via Sentry, Grafana, PagerDuty.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-header">
+      <div>
+        <span class="job-title">Software Engineer</span>
+        <span class="job-dot">·</span>
+        <span class="job-company"><a href="https://zopsmart.com" target="_blank">Zopsmart Technologies</a></span>
+      </div>
+      <div class="job-meta">Aug 2022 – Jul 2024 · Bengaluru</div>
+    </div>
+    <div class="job-stack">E-commerce platform tooling · TypeScript, React, Node.js, Express, Koa.js</div>
+    <ul>
+      <li>Built a <strong>developer documentation portal</strong>,  Docusaurus, Auth0 SSO, OpenAPI swagger execution, full-text search.</li>
+      <li>Architected <strong>Microfrontend system</strong> using Webpack Module Federation,  retail and internal tools as independent shell apps.</li>
+      <li>Built a <strong>shared CRUD table component</strong> (TanStack Table + Tailwind) with filtering, pagination, sorting & column visibility,  reused across products.</li>
+      <li>Solely built a <strong>React + TypeScript application</strong>,  MUI, Auth0 RBAC, governance modals, Data Grid with CSV export.</li>
+      <li>Developed <strong>RESTful APIs</strong> with Node.js, Express, and Koa.js,  Auth0 authentication, RBAC, Redis + LRU caching.</li>
+    </ul>
+    <div class="sub-role">
+      <div class="sub-role-header">
+        <span class="sub-role-title">Software Engineer Intern</span>
+        <span class="sub-role-meta">Feb 2022 – Aug 2022</span>
+      </div>
+      <ul>
+        <li>Built <strong>EazyUpdate</strong> from scratch with a 3-person team,  TypeScript, React, D3-org-chart for employee hierarchy visualisation.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section skills-section">
+  <div class="section-title">Skills</div>
+  <div style="display: flex; flex-direction: column; gap: 6px;">
+    <div class="skill-row">
+      <span class="skill-row-label">Languages</span>
+      <span class="skill-row-value">TypeScript · JavaScript · Node.js · C++</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-label">Frontend</span>
+      <span class="skill-row-value">React · Next.js · Redux/RTK · Tailwind CSS · Webpack · Module Federation</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-label">Backend</span>
+      <span class="skill-row-value">Node.js · Express · Koa.js · REST APIs · Redis · Auth0</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-label">AI & Tools</span>
+      <span class="skill-row-value">Claude Code · Cursor · Gemini CLI · Playwright · GitHub Copilot</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-label">Architecture</span>
+      <span class="skill-row-value">Microfrontend · Monorepo · CI/CD · Docker</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-row-label">Observability</span>
+      <span class="skill-row-value">Sentry · Grafana · Mixpanel · PagerDuty · Jest · RTL</span>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-grid">
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="job-header" style="margin-bottom: 3px;">
+      <div>
+        <div class="edu-title">BTech,  Computer Science</div>
+        <div class="edu-school">Jaypee Institute of Information Technology</div>
+      </div>
+      <div class="job-meta">2018 – 2022</div>
+    </div>
+    <div class="edu-meta">CGPA 8.0 · Noida, India</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recognition</div>
+    <div class="award">
+      <div class="award-bullet"></div>
+      <div>
+        <div class="award-name">Star Performer of the Quarter</div>
+        <div class="award-sub">Meesho · GMV Max Campaign Creation Flow</div>
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-bullet"></div>
+      <div>
+        <div class="award-name">Google DevFest Speaker</div>
+        <div class="award-sub">Google Developer Group Mysore · Chrome DevTools</div>
+      </div>
+    </div>
+    <div class="award">
+      <div class="award-bullet"></div>
+      <div>
+        <div class="award-name">Magnificent Mars Award</div>
+        <div class="award-sub">Zopsmart Technologies · EazyUpdate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
