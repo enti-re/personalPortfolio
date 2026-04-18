@@ -53,7 +53,15 @@ const About: React.FC = () => {
           >
             chandnanikhil833@gmail.com
           </Link>{" "}
-          for collaborations or just to say hi.
+          for collaborations or just to say hi. You can also{" "}
+          <Link
+            href="/resume"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
+          >
+            view my resume →
+          </Link>
         </p>
       </div>
     </section>
