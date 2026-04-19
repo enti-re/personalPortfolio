@@ -26,7 +26,7 @@ const About: React.FC = () => {
               href="https://meesho.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors hover:text-pink-500"
+              className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:text-pink-500 dark:hover:text-pink-400 hover:border-pink-500 dark:hover:border-pink-400 transition-colors"
             >
               Meesho
             </Link>
@@ -37,7 +37,7 @@ const About: React.FC = () => {
               href="https://zopsmart.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
+              className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:text-pink-500 dark:hover:text-pink-400 hover:border-pink-500 dark:hover:border-pink-400 transition-colors"
             >
               Zopsmart
             </Link>
