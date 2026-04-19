@@ -35,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) =>
       <NavLink active={activeSection === "projects"} onClick={() => setActiveSection("projects")}>
         Projects
       </NavLink>
-      <NavLink active={activeSection === "writings"} onClick={() => setActiveSection("writings")}>
+<NavLink active={activeSection === "writings"} onClick={() => setActiveSection("writings")}>
         Writings
       </NavLink>
       <NavLink active={activeSection === "books"} onClick={() => setActiveSection("books")}>

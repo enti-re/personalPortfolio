@@ -15,32 +15,78 @@ import CompoundCube from "../components/CompoundCube";
 
 const projects = [
   {
-    title: "Supplier Platform Ads: Meesho",
-    description: "Developed the Advertisement Panel for Meesho's Supplier Platform, empowering suppliers to create and manage targeted advertising campaigns. Built comprehensive campaign creation tools where suppliers can select product catalogs, set cost-per-click (CPC) rates, define budgets and durations. Implemented real-time analytics dashboard for monitoring campaign performance, conversion tracking, and ROI optimization. The panel provides suppliers with actionable insights to maximize their product visibility and sales on the platform.",
-    tags: ["React", "TypeScript", "Node.js"],
+    title: "Supplier Platform Ads — Meesho",
+    description: "Led the monetisation frontend team — built multiple microfrontend applications powering Meesho's ads platform. Shipped AI-powered Figma-to-React pipeline, Claude Code + Playwright integration for UI library migration, and improved platform LCP from ~4.1s to ~3.3s.",
+    tags: ["React", "TypeScript", "Microfrontend", "Node.js"],
     slug: "supplier-platform-ads",
     year: "2024-25",
+    link: "https://supplier.meesho.com/ads",
   },
   {
-    title: "Mcafee Key Generation Documentation",
-    description: "Comprehensive documentation system for Mcafee key generation processes and workflows.",
-    tags: ["Documentation", "Technical Writing", "Process Management"],
-    slug: "mcafee-key-gen-docs",
+    title: "Documentation Portal — Zopsmart",
+    description: "Built a developer documentation portal using Docusaurus with Auth0 SSO, OpenAPI swagger execution, and full-text search.",
+    tags: ["Docusaurus", "Auth0", "OpenAPI"],
+    slug: "documentation-portal",
     year: "2023-24",
   },
   {
-    title: "Mcafee Key Generation",
-    description: "Automated key generation system for Mcafee security products with advanced validation.",
-    tags: ["Automation", "Security", "Key Management"],
-    slug: "mcafee-key-generation",
-    year: "2023-24",
-  },
-  {
-    title: "EazyUpdate",
-    description: "Developed a comprehensive update management platform that streamlines software deployment and version control processes. Built a React-based frontend with TypeScript for type safety and vanilla CSS for custom styling. The platform enables development teams to create, manage, and distribute software updates efficiently. Implemented features for automated update deployment, rollback capabilities, and real-time deployment tracking. The system provides teams with centralized control over their software release cycles, reducing deployment complexity and improving development workflow efficiency.",
-    tags: ["React", "TypeScript", "Vanilla CSS"],
+    title: "EazyUpdate — Zopsmart",
+    description: "Built from scratch with a team of 3 — TypeScript, React, D3-org-chart for employee hierarchy visualisation.",
+    tags: ["React", "TypeScript", "D3"],
     slug: "eazyupdate",
     year: "2022-23",
+    link: "https://eazyupdates.com/",
+  },
+]
+
+const tools = [
+  {
+    title: "Claude Code + Playwright Integration",
+    description: "Built an MCP skill enabling AI-driven UI library migration — adopted org-wide at Meesho. Reduced manual component migration effort significantly.",
+    slug: "claude-playwright",
+  },
+  {
+    title: "Figma-to-React Pipeline",
+    description: "AI-powered component scaffolding pipeline using Cursor Rules and MCP. Bridges design and code for the ads team.",
+    slug: "figma-react-pipeline",
+  },
+  {
+    title: "Automated PR Review Bot",
+    description: "Gemini CLI integration for automated code review — reduced inconsistencies across the TypeScript codebase org-wide.",
+    slug: "pr-review-bot",
+  },
+]
+
+const visualizations = [
+  {
+    title: "React 19 Activity Component",
+    slug: "activity-tag",
+    date: "Oct 2025",
+    description: "Exploring React 19's new Activity API for deferred rendering and state preservation",
+  },
+  {
+    title: "MCP Data Flow Visualization",
+    slug: "mcp-flow",
+    date: "Dec 2024",
+    description: "Interactive diagram showing how Model Context Protocol connects Claude to external tools",
+  },
+  {
+    title: "Hover Grid",
+    slug: "hover-grid",
+    date: "Dec 2025",
+    description: "CSS grid experiment with neighbour-aware hover interactions",
+  },
+  {
+    title: "Fluid Sphere",
+    slug: "fluid-sphere",
+    date: "Jan 2026",
+    description: "WebGL shader experiment — fluid simulation on a 3D sphere",
+  },
+  {
+    title: "Compound Cube",
+    slug: "compound-cube",
+    date: "Jan 2026",
+    description: "Three.js geometric exploration",
   },
 ]
 
@@ -229,10 +275,10 @@ export default function Home() {
                             </p>
 
                             {/* Project Link */}
-                            {(project.slug === "supplier-platform-ads" || project.slug === "eazyupdate") && (
+                            {(project as any).link && (
                               <div className="pt-4">
                                 <Link
-                                  href={project.slug === "supplier-platform-ads" ? "https://supplier.meesho.com/ads" : "https://eazyupdates.com/"}
+                                  href={(project as any).link}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300"
@@ -263,6 +309,23 @@ export default function Home() {
                     ))}
                   </ul>
                 )}
+              </section>
+            </div>
+
+            <div className={activeSection === "tools" ? "" : "hidden"}>
+              <section className="pl-6">
+                <ul className="space-y-8">
+                  {tools.map((tool) => (
+                    <li key={tool.slug}>
+                      <div className="space-y-1.5">
+                        <span className="text-neutral-900 dark:text-neutral-100">{tool.title}</span>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                          {tool.description}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </section>
             </div>
 
@@ -320,11 +383,7 @@ export default function Home() {
                         </button>
                         <span>›</span>
                         <span className="text-neutral-900 dark:text-neutral-100">
-                          {selectedAnimation === 'activity-tag' ? 'React 19 Activity Component' :
-                            selectedAnimation === 'mcp-flow' ? 'MCP Data Flow Visualization' :
-                              selectedAnimation === 'hover-grid' ? 'Hover Grid' :
-                                selectedAnimation === 'gradient-circle' ? 'Gradient Circle' :
-                                  selectedAnimation === 'fluid-sphere' ? 'Fluid Sphere' : ''}
+                          {visualizations.find(v => v.slug === selectedAnimation)?.title ?? selectedAnimation}
                         </span>
                       </div>
                     </nav>
@@ -517,77 +576,26 @@ export default function Home() {
 
                   </div>
                 ) : (
-                  <ul className="space-y-5">
-                    <li className="group">
-                      <button
-                        onClick={() => {
-                          setSelectedAnimation('activity-tag')
-                          window.history.pushState({}, '', '/visualization/activity-tag')
-                        }}
-                        className="flex items-baseline w-full text-left cursor-pointer"
-                      >
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          React 19 Activity Component
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Oct 2025</span>
-                      </button>
-                    </li>
-                    <li className="group">
-                      <button
-                        onClick={() => {
-                          setSelectedAnimation('mcp-flow')
-                          window.history.pushState({}, '', '/visualization/mcp-flow')
-                        }}
-                        className="flex items-baseline w-full text-left cursor-pointer"
-                      >
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          MCP Data Flow Visualization
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Dec 2024</span>
-                      </button>
-                    </li>
-                    <li className="group">
-                      <button
-                        onClick={() => {
-                          setSelectedAnimation('hover-grid')
-                          window.history.pushState({}, '', '/visualization/hover-grid')
-                        }}
-                        className="flex items-baseline w-full text-left cursor-pointer"
-                      >
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          Hover Grid
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Dec 2025</span>
-                      </button>
-                    </li>
-                    <li className="group">
-                      <button
-                        onClick={() => {
-                          setSelectedAnimation('fluid-sphere')
-                          window.history.pushState({}, '', '/visualization/fluid-sphere')
-                        }}
-                        className="flex items-baseline w-full text-left cursor-pointer"
-                      >
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          Fluid Sphere
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Jan 2026</span>
-                      </button>
-                    </li>
-                    <li className="group">
-                      <button
-                        onClick={() => {
-                          setSelectedAnimation('compound-cube')
-                          window.history.pushState({}, '', '/visualization/compound-cube')
-                        }}
-                        className="flex items-baseline w-full text-left cursor-pointer"
-                      >
-                        <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                          Compound Cube
-                        </span>
-                        <span className="ml-4 text-neutral-400 text-sm tabular-nums">Jan 2026</span>
-                      </button>
-                    </li>
+                  <ul className="space-y-6">
+                    {visualizations.map((viz) => (
+                      <li key={viz.slug} className="group">
+                        <div className="space-y-0.5">
+                          <button
+                            onClick={() => {
+                              setSelectedAnimation(viz.slug)
+                              window.history.pushState({}, '', `/visualization/${viz.slug}`)
+                            }}
+                            className="flex items-baseline w-full text-left cursor-pointer"
+                          >
+                            <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                              {viz.title}
+                            </span>
+                            <span className="ml-4 text-neutral-400 text-sm tabular-nums">{viz.date}</span>
+                          </button>
+                          <p className="text-sm text-neutral-500 dark:text-neutral-400">{viz.description}</p>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </section>

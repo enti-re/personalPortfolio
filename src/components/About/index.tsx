@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
 
-const HoverPill = dynamic(() => import('../HoverPill').then(mod => ({ default: mod.HoverPill })), { 
-  ssr: false 
+const HoverPill = dynamic(() => import('../HoverPill').then(mod => ({ default: mod.HoverPill })), {
+  ssr: false
 })
 
 const About: React.FC = () => {
@@ -11,14 +11,13 @@ const About: React.FC = () => {
     <section className="pl-6">
       <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed animate-reveal">
         <p>
-          I'm a javascript developer passionate about creating robust and scalable web applications. 
-          My expertise spans across modern JavaScript frameworks, with a focus 
-          on building intuitive user experiences and efficient systems.
+          {"I'm a software engineer obsessed with craft. Currently SDE2 at Meesho \u2014 building microfrontend systems, AI-powered developer tooling, and shipping features that move real money."}
         </p>
         <p>
-          I specialize in JavaScript, TypeScript, CSS, D3 charts, Material UI, Redux, React, 
-          Node.js and Express.js. I'm also proficient with modern development tools like 
-          Cursor IDE and Gemini CLI for enhanced productivity.
+          {"I care about the intersection of design and engineering. Inspired by the way Linear, Resend, and Vercel think about product. Looking for a place where that obsession is a feature, not a bug."}
+        </p>
+        <p>
+          {"Working with TypeScript, React, Next.js, Redux/RTK, Node.js, Tailwind CSS, microfrontend architectures, and AI tooling \u2014 Claude Code, Cursor, Playwright, Gemini CLI."}
         </p>
         <p>
           Currently building products at{" "}
@@ -46,14 +45,14 @@ const About: React.FC = () => {
           .
         </p>
         <p>
-          Feel free to reach out at{" "}
+          Open to new opportunities in 2026 — building something interesting?{" "}
           <Link
             href="mailto:chandnanikhil833@gmail.com"
             className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
           >
-            chandnanikhil833@gmail.com
-          </Link>{" "}
-          for collaborations or just to say hi. You can also{" "}
+            Let's talk.
+          </Link>
+          {" "}You can also{" "}
           <Link
             href="/resume"
             target="_blank"
@@ -62,6 +61,17 @@ const About: React.FC = () => {
           >
             view my resume →
           </Link>
+        </p>
+        <p className="text-sm text-neutral-500 dark:text-neutral-500">
+          <Link
+            href="https://github.com/enti-re"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-neutral-700 dark:hover:text-neutral-400 transition-colors"
+          >
+            github.com/enti-re
+          </Link>
+          {" "}— where I experiment publicly
         </p>
       </div>
     </section>

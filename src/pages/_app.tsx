@@ -7,8 +7,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Nikhil Chandna — Designer & Developer</title>
-        <meta name="description" content="Personal portfolio showcasing selected works and projects" />
+        <title>Nikhil Chandna — Software Engineer</title>
+        <meta name="description" content="Software engineer obsessed with craft. SDE2 at Meesho. TypeScript, React, AI tooling." />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <script
           dangerouslySetInnerHTML={{
