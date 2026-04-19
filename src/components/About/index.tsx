@@ -11,13 +11,13 @@ const About: React.FC = () => {
     <section className="pl-6">
       <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed animate-reveal">
         <p>
-          {"I'm a software engineer obsessed with craft. Currently SDE2 at Meesho \u2014 building microfrontend systems, AI-powered developer tooling, and shipping features that move real money."}
+          {"I'm a software engineer obsessed with craft. Currently SDE2 at Meesho, building microfrontend systems, AI-powered developer tooling, and shipping features that move real money."}
         </p>
         <p>
           {"I care about the intersection of design and engineering. Inspired by the way Linear, Resend, and Vercel think about product. Looking for a place where that obsession is a feature, not a bug."}
         </p>
         <p>
-          {"Working with TypeScript, React, Next.js, Redux/RTK, Node.js, Tailwind CSS, microfrontend architectures, and AI tooling \u2014 Claude Code, Cursor, Playwright, Gemini CLI."}
+          {"Working with TypeScript, React, Next.js, Redux/RTK, Node.js, Tailwind CSS, microfrontend architectures, and AI tooling: Claude Code, Cursor, Playwright, Gemini CLI."}
         </p>
         <p>
           Currently building products at{" "}
@@ -45,7 +45,7 @@ const About: React.FC = () => {
           .
         </p>
         <p>
-          Open to new opportunities in 2026 — building something interesting?{" "}
+          Open to new opportunities in 2026. Building something interesting?{" "}
           <Link
             href="mailto:chandnanikhil833@gmail.com"
             className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300 transition-colors"
@@ -71,7 +71,7 @@ const About: React.FC = () => {
           >
             github.com/enti-re
           </Link>
-          {" "}— where I experiment publicly
+          {" "}where I experiment publicly
         </p>
       </div>
     </section>

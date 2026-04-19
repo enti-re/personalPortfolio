@@ -15,23 +15,23 @@ import CompoundCube from "../components/CompoundCube";
 
 const projects = [
   {
-    title: "Supplier Platform Ads — Meesho",
-    description: "Led the monetisation frontend team — built multiple microfrontend applications powering Meesho's ads platform. Shipped AI-powered Figma-to-React pipeline, Claude Code + Playwright integration for UI library migration, and improved platform LCP from ~4.1s to ~3.3s.",
+    title: "Supplier Platform Ads, Meesho",
+    description: "Led the monetisation frontend team. Built multiple microfrontend applications powering Meesho's ads platform. Shipped AI-powered Figma-to-React pipeline, Claude Code + Playwright integration for UI library migration, and improved platform LCP from ~4.1s to ~3.3s.",
     tags: ["React", "TypeScript", "Microfrontend", "Node.js"],
     slug: "supplier-platform-ads",
     year: "2024-25",
     link: "https://supplier.meesho.com/ads",
   },
   {
-    title: "Documentation Portal — Zopsmart",
+    title: "Documentation Portal, Zopsmart",
     description: "Built a developer documentation portal using Docusaurus with Auth0 SSO, OpenAPI swagger execution, and full-text search.",
     tags: ["Docusaurus", "Auth0", "OpenAPI"],
     slug: "documentation-portal",
     year: "2023-24",
   },
   {
-    title: "EazyUpdate — Zopsmart",
-    description: "Built from scratch with a team of 3 — TypeScript, React, D3-org-chart for employee hierarchy visualisation.",
+    title: "EazyUpdate, Zopsmart",
+    description: "Built from scratch with a team of 3: TypeScript, React, D3-org-chart for employee hierarchy visualisation.",
     tags: ["React", "TypeScript", "D3"],
     slug: "eazyupdate",
     year: "2022-23",
@@ -42,7 +42,7 @@ const projects = [
 const tools = [
   {
     title: "Claude Code + Playwright Integration",
-    description: "Built an MCP skill enabling AI-driven UI library migration — adopted org-wide at Meesho. Reduced manual component migration effort significantly.",
+    description: "Built an MCP skill enabling AI-driven UI library migration, adopted org-wide at Meesho. Reduced manual component migration effort significantly.",
     slug: "claude-playwright",
   },
   {
@@ -52,7 +52,7 @@ const tools = [
   },
   {
     title: "Automated PR Review Bot",
-    description: "Gemini CLI integration for automated code review — reduced inconsistencies across the TypeScript codebase org-wide.",
+    description: "Gemini CLI integration for automated code review. Reduced inconsistencies across the TypeScript codebase org-wide.",
     slug: "pr-review-bot",
   },
 ]
@@ -80,7 +80,7 @@ const visualizations = [
     title: "Fluid Sphere",
     slug: "fluid-sphere",
     date: "Jan 2026",
-    description: "WebGL shader experiment — fluid simulation on a 3D sphere",
+    description: "WebGL shader experiment, fluid simulation on a 3D sphere",
   },
   {
     title: "Compound Cube",
