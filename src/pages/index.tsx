@@ -229,14 +229,14 @@ export default function Home() {
 
   return (
     <div className="flex h-dvh max-h-dvh flex-col overflow-hidden antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
-      <div className="mx-auto flex min-h-0 w-full max-w-[900px] flex-1 px-8 py-20">
+      <div className="mx-auto flex min-h-0 w-full max-w-[900px] flex-1 px-6 py-10 sm:px-8 sm:py-20">
         <header className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row">
           <div className="mb-8 shrink-0 md:mb-0 md:w-40">
             <Name />
             <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
-          <main className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-8 dark:border-neutral-800 md:flex-1 md:pl-16">
+          <main className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-4 dark:border-neutral-800 sm:pb-8 md:flex-1 md:pl-16">
             <div className="hidden md:flex justify-end mb-6">
               <ThemeToggle />
             </div>
@@ -397,7 +397,7 @@ export default function Home() {
             </div>
 
             <div className={activeSection === "visualization" ? "" : "hidden"}>
-              <section className="min-w-0 overflow-x-hidden pl-6 pr-2 sm:pr-0">
+              <section className="min-w-0 overflow-x-hidden pl-4 pr-0 sm:pl-6">
                 {selectedAnimation ? (
                   <div className="min-w-0">
                     {/* Breadcrumb Navigation */}
@@ -413,7 +413,7 @@ export default function Home() {
                           Visualization
                         </button>
                         <span>›</span>
-                        <span className="min-w-0 text-neutral-900 dark:text-neutral-100">
+                        <span className="min-w-0 break-words text-neutral-900 dark:text-neutral-100">
                           {visualizations.find(v => v.slug === selectedAnimation)?.title ?? selectedAnimation}
                         </span>
                       </div>
@@ -455,7 +455,7 @@ export default function Home() {
                         <div className="grid w-full max-w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                           {/* Left Card - WITHOUT Activity */}
                           <div className="min-w-0">
-                            <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3 text-center">
+                            <h3 className="mb-3 text-left text-sm font-medium text-neutral-600 dark:text-neutral-400 sm:text-center">
                               Without Activity
                             </h3>
                             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
@@ -498,8 +498,13 @@ export default function Home() {
                                       )}
                                     </div>
                                   ) : (
-                                    <div className="flex flex-col items-center space-y-3 animate-out fade-out duration-300">
-                                      {/* Empty state when toggle is off */}
+                                    <div className="flex flex-col items-center space-y-2 animate-out fade-out duration-300">
+                                      <span className="rounded-full border border-neutral-200 px-2.5 py-1 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                        Unmounted
+                                      </span>
+                                      <p className="text-center text-xs text-neutral-400 dark:text-neutral-500">
+                                        Toggle on to mount this input again.
+                                      </p>
                                     </div>
                                   )}
                                 </div>
@@ -509,7 +514,7 @@ export default function Home() {
 
                           {/* Right Card - WITH Activity */}
                           <div className="min-w-0">
-                            <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3 text-center">
+                            <h3 className="mb-3 text-left text-sm font-medium text-neutral-600 dark:text-neutral-400 sm:text-center">
                               With Activity
                             </h3>
                             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
@@ -531,20 +536,34 @@ export default function Home() {
                                   ) : (
                                     /* Activity: Component is mounted, just toggle visibility */
                                     <div
-                                      className={`w-full max-w-56 transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                                        }`}
+                                      className="relative w-full max-w-56"
                                     >
-                                      <input
-                                        type="text"
-                                        value={rightInputValue}
-                                        onChange={(e) => setRightInputValue(e.target.value)}
-                                        onFocus={(e) => e.target.setSelectionRange(0, 0)}
-                                        placeholder=""
-                                        className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${rightInputValue !== initialValue
-                                          ? 'text-green-600 dark:text-green-400'
-                                          : 'text-yellow-500 dark:text-yellow-400'
+                                      <div
+                                        className={`transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
                                           } placeholder-yellow-300 dark:placeholder-yellow-200`}
-                                      />
+                                      >
+                                        <input
+                                          type="text"
+                                          value={rightInputValue}
+                                          onChange={(e) => setRightInputValue(e.target.value)}
+                                          onFocus={(e) => e.target.setSelectionRange(0, 0)}
+                                          placeholder=""
+                                          className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${rightInputValue !== initialValue
+                                            ? 'text-green-600 dark:text-green-400'
+                                            : 'text-yellow-500 dark:text-yellow-400'
+                                            } placeholder-yellow-300 dark:placeholder-yellow-200`}
+                                        />
+                                      </div>
+                                      {!isToggleOn && (
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                                          <span className="rounded-full border border-neutral-200 px-2.5 py-1 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                            Hidden
+                                          </span>
+                                          <p className="text-center text-xs text-neutral-400 dark:text-neutral-500">
+                                            State is preserved while hidden.
+                                          </p>
+                                        </div>
+                                      )}
                                     </div>
                                   )}
                                 </div>
@@ -725,8 +744,8 @@ export default function Home() {
       </div>
 
       <footer className="w-full shrink-0 border-t border-neutral-100 dark:border-neutral-800">
-        <div className="max-w-[900px] mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-start md:items-center">
-          <div className="flex space-x-5 mb-4 md:mb-0">
+        <div className="mx-auto flex max-w-[900px] items-center justify-between px-6 py-3 sm:px-8 sm:py-6">
+          <div className="flex space-x-5">
             <Link
               href="https://x.com/nikhilchandna01"
               target="_blank"
