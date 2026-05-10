@@ -4,7 +4,7 @@ import { Github, Linkedin, X } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
 import { MCPVisualization } from "../components/MCPVisualization";
 import HoverGrid from '../components/HoverGrid';
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import About from "../components/About";
 import Name from "../components/Name";
 import Sidebar from "../components/Sidebar";
@@ -134,6 +134,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("about")
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [selectedBook, setSelectedBook] = useState<string | null>(null)
+  const mainRef = useRef<HTMLElement | null>(null)
 
   // Centralized toggle state
   const [isToggleOn, setIsToggleOn] = useState<boolean>(false)
@@ -169,6 +170,10 @@ export default function Home() {
       window.history.pushState({}, '', '/')
     }
   }, [activeSection])
+
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0, left: 0 })
+  }, [activeSection, selectedProject, selectedBook, selectedAnimation])
 
   // Handle browser back/forward buttons
   useEffect(() => {
@@ -236,7 +241,7 @@ export default function Home() {
             <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
-          <main className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-4 dark:border-neutral-800 sm:pb-8 md:flex-1 md:pl-16">
+          <main ref={mainRef} className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-4 dark:border-neutral-800 sm:pb-8 md:flex-1 md:pl-16">
             <div className="hidden md:flex justify-end mb-6">
               <ThemeToggle />
             </div>
