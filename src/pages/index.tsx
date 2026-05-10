@@ -479,10 +479,23 @@ export default function Home() {
                               {project.description}
                             </p>
 
+                            {project.slug === "readly" && project.link && (
+                              <div>
+                                <Link
+                                  href={project.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300"
+                                >
+                                  View Project →
+                                </Link>
+                              </div>
+                            )}
+
                             {project.slug === "readly" && <ReadlyEmailPreview />}
 
                             {/* Project Link */}
-                            {project.link && (
+                            {project.slug !== "readly" && project.link && (
                               <div className="pt-4">
                                 <Link
                                   href={project.link}
