@@ -65,6 +65,8 @@ const readlyNewsletters = [
     time: "3h",
     title: "The Curiosity Chronicle",
     description: "Frameworks worth stealing for calmer decisions.",
+    readTime: "5 min read",
+    excerpt: "Simple frameworks beat clever slogans when you need to decide under pressure. Close with one question: what would this look like if it were easy?",
   },
   {
     sender: "Mark Manson",
@@ -72,6 +74,8 @@ const readlyNewsletters = [
     time: "1d",
     title: "Mindf*ck Monday",
     description: "One uncomfortable truth, zero motivational posters.",
+    readTime: "4 min read",
+    excerpt: "A calmer read on honesty over hype, with one uncomfortable truth and one story worth keeping.",
   },
   {
     sender: "James Clear",
@@ -79,10 +83,35 @@ const readlyNewsletters = [
     time: "2d",
     title: "3-2-1",
     description: "Habits, quotes, and questions in one quiet scroll.",
+    readTime: "3 min read",
+    excerpt: "Three ideas, two quotes, and one question for building better habits without the noise.",
   },
 ]
 
 function ReadlyEmailPreview() {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [savedTitles, setSavedTitles] = useState<string[]>([readlyNewsletters[0].title])
+  const [archivedTitles, setArchivedTitles] = useState<string[]>([])
+  const selectedNewsletter = readlyNewsletters[selectedIndex]
+  const isSaved = savedTitles.includes(selectedNewsletter.title)
+  const isArchived = archivedTitles.includes(selectedNewsletter.title)
+
+  const toggleSaved = () => {
+    setSavedTitles((current) =>
+      current.includes(selectedNewsletter.title)
+        ? current.filter((title) => title !== selectedNewsletter.title)
+        : [...current, selectedNewsletter.title]
+    )
+  }
+
+  const toggleArchived = () => {
+    setArchivedTitles((current) =>
+      current.includes(selectedNewsletter.title)
+        ? current.filter((title) => title !== selectedNewsletter.title)
+        : [...current, selectedNewsletter.title]
+    )
+  }
+
   return (
     <div className="max-w-sm overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
       <div className="flex h-10 items-center gap-2 border-b border-neutral-200 px-3 dark:border-neutral-800">
@@ -92,12 +121,15 @@ function ReadlyEmailPreview() {
       </div>
       <div className="divide-y divide-neutral-200/70 dark:divide-neutral-800">
         {readlyNewsletters.map((newsletter, index) => (
-          <div
+          <button
+            type="button"
             key={newsletter.sender}
-            className={`flex items-start gap-2.5 px-3 py-2.5 ${index === 0 ? "border-l-2 border-amber-500 bg-white dark:bg-neutral-950/60" : "border-l-2 border-transparent"
+            onClick={() => setSelectedIndex(index)}
+            aria-pressed={selectedIndex === index}
+            className={`flex w-full items-start gap-2.5 px-3 py-2.5 text-left transition-colors ${selectedIndex === index ? "border-l-2 border-amber-500 bg-white dark:bg-neutral-950/60" : "border-l-2 border-transparent hover:bg-white/70 dark:hover:bg-neutral-950/40"
               }`}
           >
-            <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${index === 0
+            <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${selectedIndex === index
               ? "border border-amber-500/40 bg-amber-500/20 text-amber-700 dark:text-amber-300"
               : "border border-neutral-200 bg-neutral-100 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-500"
               }`}
@@ -114,8 +146,46 @@ function ReadlyEmailPreview() {
                 {newsletter.description}
               </p>
             </div>
-          </div>
+          </button>
         ))}
+      </div>
+      <div className="border-t border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950/70">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
+            {selectedNewsletter.initial}
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-medium text-neutral-900 dark:text-neutral-100">{selectedNewsletter.title}</p>
+            <p className="text-[10px] text-neutral-400">
+              {selectedNewsletter.sender} · {selectedNewsletter.readTime}
+            </p>
+          </div>
+        </div>
+        <p className="line-clamp-2 text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-400">
+          {selectedNewsletter.excerpt}
+        </p>
+        <div className="mt-3 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleSaved}
+            className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isSaved
+              ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+              : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+              }`}
+          >
+            {isSaved ? "Saved" : "Save"}
+          </button>
+          <button
+            type="button"
+            onClick={toggleArchived}
+            className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isArchived
+              ? "border-neutral-300 bg-neutral-100 text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+              : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+              }`}
+          >
+            {isArchived ? "Archived" : "Archive"}
+          </button>
+        </div>
       </div>
     </div>
   )
