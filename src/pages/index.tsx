@@ -230,13 +230,13 @@ export default function Home() {
   return (
     <div className="flex h-dvh max-h-dvh flex-col overflow-hidden antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
       <div className="mx-auto flex min-h-0 w-full max-w-[900px] flex-1 px-8 py-20">
-        <header className="flex min-h-0 flex-1 flex-col md:flex-row">
+        <header className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row">
           <div className="mb-8 shrink-0 md:mb-0 md:w-40">
             <Name />
             <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
-          <main className="min-h-0 overflow-y-auto overscroll-contain border-l border-neutral-100 pb-8 dark:border-neutral-800 md:flex-1 md:pl-16">
+          <main className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-8 dark:border-neutral-800 md:flex-1 md:pl-16">
             <div className="hidden md:flex justify-end mb-6">
               <ThemeToggle />
             </div>
@@ -397,12 +397,12 @@ export default function Home() {
             </div>
 
             <div className={activeSection === "visualization" ? "" : "hidden"}>
-              <section className="pl-6">
+              <section className="min-w-0 overflow-x-hidden pl-6 pr-2 sm:pr-0">
                 {selectedAnimation ? (
-                  <div>
+                  <div className="min-w-0">
                     {/* Breadcrumb Navigation */}
                     <nav className="mb-8">
-                      <div className="flex items-center space-x-2 text-sm text-neutral-500 dark:text-neutral-400">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-500 dark:text-neutral-400">
                         <button
                           onClick={() => {
                             setSelectedAnimation(null)
@@ -413,7 +413,7 @@ export default function Home() {
                           Visualization
                         </button>
                         <span>›</span>
-                        <span className="text-neutral-900 dark:text-neutral-100">
+                        <span className="min-w-0 text-neutral-900 dark:text-neutral-100">
                           {visualizations.find(v => v.slug === selectedAnimation)?.title ?? selectedAnimation}
                         </span>
                       </div>
@@ -421,19 +421,19 @@ export default function Home() {
 
                     {/* Activity Demo Content */}
                     {selectedAnimation === 'activity-tag' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-5 sm:space-y-6">
                         {/* Main Heading */}
-                        <h2 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 mb-4">
+                        <h2 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100 sm:text-2xl">
                           &lt;Activity /&gt; tag
                         </h2>
 
                         {/* Description */}
-                        <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 max-w-2xl">
+                        <p className="mb-6 max-w-full text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:mb-8 sm:text-base">
                           Activity keeps components mounted when hidden. Normal React unmounts and re-mounts, losing all state. Great for tabs and modals.
                         </p>
 
                         {/* Centralized Toggle Button */}
-                        <div className="flex items-center gap-4 mb-8">
+                        <div className="mb-6 flex items-center gap-4 sm:mb-8">
                           <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
                             Hide Input
                           </h3>
@@ -452,17 +452,17 @@ export default function Home() {
                         </div>
 
                         {/* Toggle Demos - Side by Side */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                        <div className="grid w-full max-w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                           {/* Left Card - WITHOUT Activity */}
-                          <div>
+                          <div className="min-w-0">
                             <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3 text-center">
                               Without Activity
                             </h3>
                             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
-                              <div className="p-6">
+                              <div className="p-4 sm:p-6">
 
                                 {/* Loader and Input Area */}
-                                <div className="flex flex-col items-center justify-center py-6 min-h-[180px]">
+                                <div className="flex min-h-[140px] flex-col items-center justify-center py-4 sm:min-h-[180px] sm:py-6">
                                   {isToggleOn ? (
                                     <div className="flex flex-col items-center space-y-3 animate-in fade-in duration-300">
                                       {leftMountingPhase === 'loading' && (
@@ -482,7 +482,7 @@ export default function Home() {
 
                                       {leftMountingPhase === 'input' && (
                                         /* Input Phase */
-                                        <div className="w-56">
+                                        <div className="w-full max-w-56">
                                           <input
                                             type="text"
                                             value={leftInputValue}
@@ -508,14 +508,14 @@ export default function Home() {
                           </div>
 
                           {/* Right Card - WITH Activity */}
-                          <div>
+                          <div className="min-w-0">
                             <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3 text-center">
                               With Activity
                             </h3>
                             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
-                              <div className="p-6">
+                              <div className="p-4 sm:p-6">
                                 {/* Activity Wrapper - Component stays mounted */}
-                                <div className="flex flex-col items-center justify-center py-6 min-h-[180px]">
+                                <div className="flex min-h-[140px] flex-col items-center justify-center py-4 sm:min-h-[180px] sm:py-6">
                                   {!hasRightMounted && isToggleOn && rightMountingPhase === 'loading' ? (
                                     /* Initial Mounting - Show Loader */
                                     <div className="flex flex-col items-center space-y-3">
@@ -531,7 +531,7 @@ export default function Home() {
                                   ) : (
                                     /* Activity: Component is mounted, just toggle visibility */
                                     <div
-                                      className={`w-56 transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                                      className={`w-full max-w-56 transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
                                         }`}
                                     >
                                       <input
@@ -554,9 +554,9 @@ export default function Home() {
                         </div>
 
                         {/* Code Snippet - Blue/Green/Red (Classic) */}
-                        <div className="rounded-lg overflow-hidden max-w-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 mt-8">
-                          <pre className="p-4 overflow-x-auto">
-                            <code className="text-sm font-mono leading-relaxed">
+                        <div className="mt-8 max-w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
+                          <pre className="overflow-x-auto p-3 sm:p-4">
+                            <code className="font-mono text-xs leading-relaxed sm:text-sm">
                               <span className="text-blue-600 dark:text-blue-400">&lt;Activity</span>{" "}
                               <span className="text-neutral-500 dark:text-neutral-500">mode</span>
                               <span className="text-neutral-500 dark:text-neutral-600">=&amp;#123;</span>
@@ -580,27 +580,27 @@ export default function Home() {
 
                     {/* MCP Flow Visualization */}
                     {selectedAnimation === 'mcp-flow' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <MCPVisualization />
                       </div>
                     )}
                     {selectedAnimation === 'hover-grid' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <HoverGrid />
                       </div>
                     )}
                     {selectedAnimation === 'gradient-circle' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <GradientCircle />
                       </div>
                     )}
                     {selectedAnimation === 'fluid-sphere' && (
-                      <div className="space-y-6 h-[600px]">
+                      <div className="h-[420px] min-w-0 space-y-6 overflow-hidden sm:h-[600px]">
                         <FluidSphere />
                       </div>
                     )}
                     {selectedAnimation === 'compound-cube' && (
-                      <div className="space-y-6 h-[600px]">
+                      <div className="h-[420px] min-w-0 space-y-6 overflow-hidden sm:h-[600px]">
                         <CompoundCube />
                       </div>
                     )}
@@ -616,12 +616,12 @@ export default function Home() {
                               setSelectedAnimation(viz.slug)
                               window.history.pushState({}, '', `/visualization/${viz.slug}`)
                             }}
-                            className="flex items-baseline w-full text-left cursor-pointer"
+                            className="flex w-full min-w-0 cursor-pointer items-baseline text-left"
                           >
-                            <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                            <span className="min-w-0 flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
                               {viz.title}
                             </span>
-                            <span className="ml-4 text-neutral-400 text-sm tabular-nums">{viz.date}</span>
+                            <span className="ml-4 shrink-0 text-neutral-400 text-sm tabular-nums">{viz.date}</span>
                           </button>
                           <p className="text-sm text-neutral-500 dark:text-neutral-400">{viz.description}</p>
                         </div>
