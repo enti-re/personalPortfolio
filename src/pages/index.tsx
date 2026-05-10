@@ -102,24 +102,20 @@ function ReadlyEmailPreview() {
     visibleNewsletters.find((newsletter) => newsletter.title === selectedTitle) ??
     visibleNewsletters[0] ??
     null
-  const isSaved = selectedNewsletter ? savedTitles.includes(selectedNewsletter.title) : false
-  const isArchived = selectedNewsletter ? archivedTitles.includes(selectedNewsletter.title) : false
 
-  const toggleSaved = () => {
-    if (!selectedNewsletter) return
+  const toggleSaved = (title: string) => {
     setSavedTitles((current) =>
-      current.includes(selectedNewsletter.title)
-        ? current.filter((title) => title !== selectedNewsletter.title)
-        : [...current, selectedNewsletter.title]
+      current.includes(title)
+        ? current.filter((savedTitle) => savedTitle !== title)
+        : [...current, title]
     )
   }
 
-  const toggleArchived = () => {
-    if (!selectedNewsletter) return
+  const toggleArchived = (title: string) => {
     setArchivedTitles((current) =>
-      current.includes(selectedNewsletter.title)
-        ? current.filter((title) => title !== selectedNewsletter.title)
-        : [...current, selectedNewsletter.title]
+      current.includes(title)
+        ? current.filter((archivedTitle) => archivedTitle !== title)
+        : [...current, title]
     )
   }
 
@@ -154,80 +150,73 @@ function ReadlyEmailPreview() {
           <div className="px-3 py-5 text-center text-xs text-neutral-400">
             Nothing here yet.
           </div>
-        ) : visibleNewsletters.map((newsletter) => (
-          <button
-            type="button"
-            key={newsletter.sender}
-            onClick={() => setSelectedTitle(newsletter.title)}
-            aria-pressed={selectedNewsletter?.title === newsletter.title}
-            className={`flex w-full items-start gap-2.5 px-3 py-2.5 text-left transition-colors ${selectedNewsletter?.title === newsletter.title ? "border-l-2 border-amber-500 bg-white dark:bg-neutral-950/60" : "border-l-2 border-transparent hover:bg-white/70 dark:hover:bg-neutral-950/40"
-              }`}
-          >
-            <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${selectedNewsletter?.title === newsletter.title
-              ? "border border-amber-500/40 bg-amber-500/20 text-amber-700 dark:text-amber-300"
-              : "border border-neutral-200 bg-neutral-100 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-500"
-              }`}
+        ) : visibleNewsletters.map((newsletter) => {
+          const isSelected = selectedNewsletter?.title === newsletter.title
+          const isSaved = savedTitles.includes(newsletter.title)
+          const isArchived = archivedTitles.includes(newsletter.title)
+
+          return (
+            <div
+              key={newsletter.sender}
+              className={`border-l-2 transition-colors ${isSelected ? "border-l-amber-500 bg-white dark:bg-neutral-950/60" : "border-l-transparent hover:bg-white/70 dark:hover:bg-neutral-950/40"
+                }`}
             >
-              {newsletter.initial}
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="mb-0.5 flex items-center justify-between gap-2">
-                <span className="truncate text-xs font-medium text-neutral-800 dark:text-neutral-200">{newsletter.sender}</span>
-                <span className="shrink-0 text-[10px] text-neutral-400">{newsletter.time}</span>
-              </div>
-              <p className="truncate text-xs text-neutral-700 dark:text-neutral-300">{newsletter.title}</p>
-              <p className="mt-0.5 truncate text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-500">
-                {newsletter.description}
-              </p>
-            </div>
-          </button>
-        ))}
-      </div>
-      <div className="border-t border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950/70">
-        {selectedNewsletter ? (
-          <>
-            <div className="mb-2 flex items-center gap-2">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
-                {selectedNewsletter.initial}
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-medium text-neutral-900 dark:text-neutral-100">{selectedNewsletter.title}</p>
-                <p className="text-[10px] text-neutral-400">
-                  {selectedNewsletter.sender} · {selectedNewsletter.readTime}
-                </p>
-              </div>
-            </div>
-            <p className="line-clamp-2 text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-400">
-              {selectedNewsletter.excerpt}
-            </p>
-            <div className="mt-3 flex items-center gap-2">
               <button
                 type="button"
-                onClick={toggleSaved}
-                className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isSaved
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                  : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
-                  }`}
+                onClick={() => setSelectedTitle(newsletter.title)}
+                aria-pressed={isSelected}
+                className="flex w-full items-start gap-2.5 px-3 py-2.5 text-left"
               >
-                {isSaved ? "Saved" : "Save"}
-              </button>
-              <button
-                type="button"
-                onClick={toggleArchived}
-                className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isArchived
-                  ? "border-neutral-300 bg-neutral-100 text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
-                  : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+                <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${isSelected
+                  ? "border border-amber-500/40 bg-amber-500/20 text-amber-700 dark:text-amber-300"
+                  : "border border-neutral-200 bg-neutral-100 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-500"
                   }`}
-              >
-                {isArchived ? "Restore" : "Archive"}
+                >
+                  {newsletter.initial}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-0.5 flex items-center justify-between gap-2">
+                    <span className="truncate text-xs font-medium text-neutral-800 dark:text-neutral-200">{newsletter.sender}</span>
+                    <span className="shrink-0 text-[10px] text-neutral-400">{newsletter.time}</span>
+                  </div>
+                  <p className="truncate text-xs text-neutral-700 dark:text-neutral-300">{newsletter.title}</p>
+                  <p className="mt-0.5 truncate text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-500">
+                    {newsletter.description}
+                  </p>
+                </div>
               </button>
+              {isSelected && (
+                <div className="px-3 pb-3 pl-[50px]">
+                  <p className="line-clamp-2 text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-400">
+                    {newsletter.excerpt}
+                  </p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => toggleSaved(newsletter.title)}
+                      className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isSaved
+                        ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                        : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+                        }`}
+                    >
+                      {isSaved ? "Saved" : "Save"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => toggleArchived(newsletter.title)}
+                      className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isArchived
+                        ? "border-neutral-300 bg-neutral-100 text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+                        : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+                        }`}
+                    >
+                      {isArchived ? "Restore" : "Archive"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          </>
-        ) : (
-          <p className="text-center text-xs text-neutral-400">
-            Select another tab to continue reading.
-          </p>
-        )}
+          )
+        })}
       </div>
     </div>
   )
