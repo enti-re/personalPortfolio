@@ -293,21 +293,33 @@ export default function Home() {
                     })()}
                   </div>
                 ) : (
-                  <ul className="space-y-5">
-                    {projects.map((project) => (
-                      <li key={project.slug} className="group">
-                        <button
-                          onClick={() => setSelectedProject(project.slug)}
-                          className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-                        >
-                          <span className="flex-1">
-                            {project.title}
-                          </span>
-                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="space-y-6">
+                    <Link
+                      href="https://newsletter-app-gold.vercel.app/login"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-600 shadow-sm transition-colors hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
+                      <span>In progress</span>
+                    </Link>
+
+                    <ul className="space-y-5">
+                      {projects.map((project) => (
+                        <li key={project.slug} className="group">
+                          <button
+                            onClick={() => setSelectedProject(project.slug)}
+                            className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+                          >
+                            <span className="flex-1">
+                              {project.title}
+                            </span>
+                            <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </section>
             </div>
