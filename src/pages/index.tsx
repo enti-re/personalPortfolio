@@ -323,18 +323,18 @@ export default function Home() {
                       <li key={project.slug} className="group">
                         <button
                           onClick={() => setSelectedProject(project.slug)}
-                          className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+                          className="flex w-full items-center text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
                         >
-                          <span className="flex-1">
-                            <span>{project.title}</span>
+                          <span className="flex min-w-0 flex-1 items-center gap-2">
+                            <span className="truncate text-[14px] sm:text-[15px]">{project.title}</span>
                             {project.status === "in-progress" && (
-                              <span className="ml-3 inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 align-middle text-xs text-green-600 dark:bg-green-900/20 dark:text-green-400">
+                              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-green-100 px-1.5 py-0.5 text-[11px] leading-none text-green-600 dark:bg-green-900/20 dark:text-green-400 sm:gap-1.5 sm:px-2 sm:text-xs">
                                 <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
                                 In progress
                               </span>
                             )}
                           </span>
-                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
+                          <span className="ml-2 shrink-0 text-neutral-400 text-sm tabular-nums sm:ml-4">{project.year}</span>
                         </button>
                       </li>
                     ))}
