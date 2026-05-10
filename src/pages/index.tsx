@@ -272,9 +272,9 @@ export default function Home() {
 
                       return (
                         <div className="space-y-6">
-                          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500 dark:text-neutral-400">
-                            <span>{project.year}</span>
-                            <span>•</span>
+                          <div className="flex flex-col items-start gap-3 text-sm text-neutral-500 dark:text-neutral-400 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
+                            <span className="whitespace-nowrap">{project.year}</span>
+                            <span className="hidden sm:inline">•</span>
                             <div className="flex flex-wrap gap-2">
                               {project.tags.map((tag) => (
                                 <span
