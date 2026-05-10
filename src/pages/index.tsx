@@ -13,7 +13,26 @@ import FluidSphere from "../components/FluidSphere";
 import CompoundCube from "../components/CompoundCube";
 
 
-const projects = [
+interface Project {
+  title: string
+  description: string
+  tags: string[]
+  slug: string
+  year: string
+  link?: string
+  status?: "in-progress"
+}
+
+const projects: Project[] = [
+  {
+    title: "Readly - Calm newsletter reader",
+    description: "A calm newsletter reader focused on a distraction-free reading experience.",
+    tags: ["Next.js", "Newsletter", "Reader"],
+    slug: "readly",
+    year: "2026",
+    link: "https://newsletter-app-gold.vercel.app/login",
+    status: "in-progress",
+  },
   {
     title: "Supplier Platform Ads, Meesho",
     description: "Led the monetisation frontend team. Built multiple microfrontend applications powering Meesho's ads platform. Shipped AI-powered Figma-to-React pipeline, Claude Code + Playwright integration for UI library migration, and improved platform LCP from ~4.1s to ~3.3s.",
@@ -253,7 +272,7 @@ export default function Home() {
 
                       return (
                         <div className="space-y-6">
-                          <div className="flex items-center space-x-4 text-sm text-neutral-500 dark:text-neutral-400">
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-500 dark:text-neutral-400">
                             <span>{project.year}</span>
                             <span>•</span>
                             <div className="flex flex-wrap gap-2">
@@ -266,6 +285,12 @@ export default function Home() {
                                 </span>
                               ))}
                             </div>
+                            {project.status === "in-progress" && (
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-600 dark:bg-green-900/20 dark:text-green-400">
+                                <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
+                                In progress
+                              </span>
+                            )}
                           </div>
 
                           <div className="space-y-6">
@@ -275,10 +300,10 @@ export default function Home() {
                             </p>
 
                             {/* Project Link */}
-                            {(project as any).link && (
+                            {project.link && (
                               <div className="pt-4">
                                 <Link
-                                  href={(project as any).link}
+                                  href={project.link}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300"
@@ -293,33 +318,27 @@ export default function Home() {
                     })()}
                   </div>
                 ) : (
-                  <div className="space-y-6">
-                    <Link
-                      href="https://newsletter-app-gold.vercel.app/login"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs text-neutral-600 shadow-sm transition-colors hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-900 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
-                      <span>In progress</span>
-                    </Link>
-
-                    <ul className="space-y-5">
-                      {projects.map((project) => (
-                        <li key={project.slug} className="group">
-                          <button
-                            onClick={() => setSelectedProject(project.slug)}
-                            className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-                          >
-                            <span className="flex-1">
-                              {project.title}
-                            </span>
-                            <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <ul className="space-y-5">
+                    {projects.map((project) => (
+                      <li key={project.slug} className="group">
+                        <button
+                          onClick={() => setSelectedProject(project.slug)}
+                          className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+                        >
+                          <span className="flex-1">
+                            <span>{project.title}</span>
+                            {project.status === "in-progress" && (
+                              <span className="ml-3 inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 align-middle text-xs text-green-600 dark:bg-green-900/20 dark:text-green-400">
+                                <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
+                                In progress
+                              </span>
+                            )}
+                          </span>
+                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </section>
             </div>
