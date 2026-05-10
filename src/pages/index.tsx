@@ -405,7 +405,7 @@ export default function Home() {
             <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
-          <main ref={mainRef} className="min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-4 dark:border-neutral-800 sm:pb-8 md:flex-1 md:pl-16">
+          <main ref={mainRef} className="scrollbar-none min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-4 dark:border-neutral-800 sm:pb-8 md:flex-1 md:pl-16">
             <div className="hidden md:flex justify-end mb-6">
               <ThemeToggle />
             </div>
