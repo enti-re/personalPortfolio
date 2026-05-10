@@ -1,6 +1,6 @@
 import type React from "react"
 import Link from "next/link"
-import { Github, Linkedin, X } from "lucide-react"
+import { Github, Linkedin, Newspaper, X } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
 import { MCPVisualization } from "../components/MCPVisualization";
 import HoverGrid from '../components/HoverGrid';
@@ -57,6 +57,69 @@ const projects: Project[] = [
     link: "https://eazyupdates.com/",
   },
 ]
+
+const readlyNewsletters = [
+  {
+    sender: "Sahil Bloom",
+    initial: "S",
+    time: "3h",
+    title: "The Curiosity Chronicle",
+    description: "Frameworks worth stealing for calmer decisions.",
+  },
+  {
+    sender: "Mark Manson",
+    initial: "M",
+    time: "1d",
+    title: "Mindf*ck Monday",
+    description: "One uncomfortable truth, zero motivational posters.",
+  },
+  {
+    sender: "James Clear",
+    initial: "J",
+    time: "2d",
+    title: "3-2-1",
+    description: "Habits, quotes, and questions in one quiet scroll.",
+  },
+]
+
+function ReadlyEmailPreview() {
+  return (
+    <div className="max-w-sm overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex h-10 items-center gap-2 border-b border-neutral-200 px-3 dark:border-neutral-800">
+        <Newspaper className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+        <span className="flex-1 text-xs font-medium text-neutral-900 dark:text-neutral-100">Newsletter</span>
+        <span className="text-[10px] tabular-nums text-neutral-400">{readlyNewsletters.length}</span>
+      </div>
+      <div className="divide-y divide-neutral-200/70 dark:divide-neutral-800">
+        {readlyNewsletters.map((newsletter, index) => (
+          <div
+            key={newsletter.sender}
+            className={`flex items-start gap-2.5 px-3 py-2.5 ${index === 0 ? "border-l-2 border-amber-500 bg-white dark:bg-neutral-950/60" : "border-l-2 border-transparent"
+              }`}
+          >
+            <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${index === 0
+              ? "border border-amber-500/40 bg-amber-500/20 text-amber-700 dark:text-amber-300"
+              : "border border-neutral-200 bg-neutral-100 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-500"
+              }`}
+            >
+              {newsletter.initial}
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="mb-0.5 flex items-center justify-between gap-2">
+                <span className="truncate text-xs font-medium text-neutral-800 dark:text-neutral-200">{newsletter.sender}</span>
+                <span className="shrink-0 text-[10px] text-neutral-400">{newsletter.time}</span>
+              </div>
+              <p className="truncate text-xs text-neutral-700 dark:text-neutral-300">{newsletter.title}</p>
+              <p className="mt-0.5 truncate text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-500">
+                {newsletter.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const tools = [
   {
@@ -303,6 +366,8 @@ export default function Home() {
                             <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
                               {project.description}
                             </p>
+
+                            {project.slug === "readly" && <ReadlyEmailPreview />}
 
                             {/* Project Link */}
                             {project.link && (
