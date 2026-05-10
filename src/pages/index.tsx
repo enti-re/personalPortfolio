@@ -228,15 +228,15 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
-      <div className="max-w-[900px] mx-auto px-8 py-20 w-full flex-grow">
-        <header className="mb-16 flex flex-col md:flex-row">
-          <div className="md:w-40 mb-8 md:mb-0">
+    <div className="flex h-dvh max-h-dvh flex-col overflow-hidden antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
+      <div className="mx-auto flex min-h-0 w-full max-w-[900px] flex-1 px-8 py-20">
+        <header className="flex min-h-0 flex-1 flex-col md:flex-row">
+          <div className="mb-8 shrink-0 md:mb-0 md:w-40">
             <Name />
             <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
-          <main className="md:flex-1 md:pl-16 border-l border-neutral-100 dark:border-neutral-800">
+          <main className="min-h-0 overflow-y-auto overscroll-contain border-l border-neutral-100 pb-8 dark:border-neutral-800 md:flex-1 md:pl-16">
             <div className="hidden md:flex justify-end mb-6">
               <ThemeToggle />
             </div>
@@ -724,7 +724,7 @@ export default function Home() {
         </header>
       </div>
 
-      <footer className="w-full border-t border-neutral-100 dark:border-neutral-800">
+      <footer className="w-full shrink-0 border-t border-neutral-100 dark:border-neutral-800">
         <div className="max-w-[900px] mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-start md:items-center">
           <div className="flex space-x-5 mb-4 md:mb-0">
             <Link
