@@ -470,6 +470,33 @@ export default function Home() {
                             <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-500">
                               Turning the toggle off removes the input, so its state resets when it comes back.
                             </p>
+                            {isToggleOn && (
+                              <div className="mt-4 flex min-h-[64px] items-center justify-center">
+                                {leftMountingPhase === 'loading' ? (
+                                  <div className="flex flex-col items-center space-y-2">
+                                    <div className="loader">
+                                      <div className="loader-dot"></div>
+                                      <div className="loader-dot"></div>
+                                      <div className="loader-dot"></div>
+                                    </div>
+                                    <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                                      Component Mounting
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <input
+                                    type="text"
+                                    value={leftInputValue}
+                                    onChange={(e) => setLeftInputValue(e.target.value)}
+                                    onFocus={(e) => e.target.setSelectionRange(0, 0)}
+                                    className={`w-full border-0 border-b border-neutral-300 bg-transparent px-2 py-1.5 text-center text-sm focus:outline-none dark:border-neutral-700 ${leftInputValue !== initialValue
+                                      ? 'text-green-600 dark:text-green-400'
+                                      : 'text-yellow-500 dark:text-yellow-400'
+                                      }`}
+                                  />
+                                )}
+                              </div>
+                            )}
                           </div>
 
                           <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
@@ -484,6 +511,45 @@ export default function Home() {
                             <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-500">
                               Activity hides the input while keeping it mounted, preserving its state.
                             </p>
+                            <div className="mt-4 flex min-h-[64px] items-center justify-center">
+                              {!hasRightMounted && isToggleOn && rightMountingPhase === 'loading' ? (
+                                <div className="flex flex-col items-center space-y-2">
+                                  <div className="loader">
+                                    <div className="loader-dot"></div>
+                                    <div className="loader-dot"></div>
+                                    <div className="loader-dot"></div>
+                                  </div>
+                                  <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                                    Component Mounting
+                                  </p>
+                                </div>
+                              ) : (
+                                <div className="relative w-full">
+                                  <div
+                                    className={`transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                                      }`}
+                                  >
+                                    <input
+                                      type="text"
+                                      value={rightInputValue}
+                                      onChange={(e) => setRightInputValue(e.target.value)}
+                                      onFocus={(e) => e.target.setSelectionRange(0, 0)}
+                                      className={`w-full border-0 border-b border-neutral-300 bg-transparent px-2 py-1.5 text-center text-sm focus:outline-none dark:border-neutral-700 ${rightInputValue !== initialValue
+                                        ? 'text-green-600 dark:text-green-400'
+                                        : 'text-yellow-500 dark:text-yellow-400'
+                                        }`}
+                                    />
+                                  </div>
+                                  {!isToggleOn && (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                      <span className="rounded-full border border-neutral-200 px-2.5 py-1 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                        Hidden
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
 
