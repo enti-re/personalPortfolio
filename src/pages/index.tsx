@@ -428,7 +428,7 @@ export default function Home() {
                         </h2>
 
                         {/* Description */}
-                        <p className="mb-6 max-w-full text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:mb-8 sm:text-base">
+                        <p className="mb-6 max-w-full break-words text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:mb-8 sm:text-base">
                           Activity keeps components mounted when hidden. Normal React unmounts and re-mounts, losing all state. Great for tabs and modals.
                         </p>
 
@@ -451,8 +451,39 @@ export default function Home() {
                           </button>
                         </div>
 
+                        {/* Compact mobile summary */}
+                        <div className="space-y-3 sm:hidden">
+                          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                            <div className="flex items-center justify-between gap-3">
+                              <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                Without Activity
+                              </h3>
+                              <span className="rounded-full border border-neutral-200 px-2 py-0.5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                {isToggleOn ? "Mounted" : "Unmounted"}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-500">
+                              Turning the toggle off removes the input, so its state resets when it comes back.
+                            </p>
+                          </div>
+
+                          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                            <div className="flex items-center justify-between gap-3">
+                              <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                With Activity
+                              </h3>
+                              <span className="rounded-full border border-neutral-200 px-2 py-0.5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                {isToggleOn ? "Visible" : "Hidden"}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-500">
+                              Activity hides the input while keeping it mounted, preserving its state.
+                            </p>
+                          </div>
+                        </div>
+
                         {/* Toggle Demos - Side by Side */}
-                        <div className="grid w-full max-w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+                        <div className="hidden w-full max-w-full grid-cols-1 gap-5 sm:grid md:grid-cols-2 md:gap-6">
                           {/* Left Card - WITHOUT Activity */}
                           <div className="min-w-0">
                             <h3 className="mb-3 text-left text-sm font-medium text-neutral-600 dark:text-neutral-400 sm:text-center">
@@ -573,7 +604,7 @@ export default function Home() {
                         </div>
 
                         {/* Code Snippet - Blue/Green/Red (Classic) */}
-                        <div className="mt-8 max-w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
+                        <div className="mt-8 hidden max-w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 sm:block">
                           <pre className="overflow-x-auto p-3 sm:p-4">
                             <code className="font-mono text-xs leading-relaxed sm:text-sm">
                               <span className="text-blue-600 dark:text-blue-400">&lt;Activity</span>{" "}
