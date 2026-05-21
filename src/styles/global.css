@@ -241,21 +241,6 @@ body {
   animation: blink-green-white-dark 2s ease-in-out infinite;
 }
 
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-reveal {
-  animation: reveal 1000ms ease-out forwards;
-}
-
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;

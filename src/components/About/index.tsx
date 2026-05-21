@@ -9,7 +9,7 @@ const HoverPill = dynamic(() => import('../HoverPill').then(mod => ({ default: m
 const About: React.FC = () => {
   return (
     <section className="pl-6">
-      <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed animate-reveal">
+      <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed">
         <p>
           {"I'm a software engineer obsessed with craft. Currently SDE2 at Meesho, building microfrontend systems, AI-powered developer tooling, and shipping features that move real money."}
         </p>

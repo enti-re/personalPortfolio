@@ -28,7 +28,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) => {
   return (
-    <nav className="flex md:flex-col space-x-6 md:space-x-0 md:space-y-3 animate-reveal">
+    <nav className="flex md:flex-col space-x-6 md:space-x-0 md:space-y-3">
       <NavLink active={activeSection === "about"} onClick={() => setActiveSection("about")}>
         About
       </NavLink>
