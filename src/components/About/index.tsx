@@ -9,7 +9,7 @@ const HoverPill = dynamic(() => import('../HoverPill').then(mod => ({ default: m
 const About: React.FC = () => {
   return (
     <section className="pl-6">
-      <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed animate-reveal">
+      <div className="space-y-5 text-neutral-800 dark:text-neutral-300 leading-relaxed">
         <p>
           {"I'm a software engineer obsessed with craft. Currently SDE2 at Meesho, building microfrontend systems, AI-powered developer tooling, and shipping features that move real money."}
         </p>
@@ -37,7 +37,7 @@ const About: React.FC = () => {
               href="https://zopsmart.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:text-pink-500 dark:hover:text-pink-400 hover:border-pink-500 dark:hover:border-pink-400 transition-colors"
+              className="text-neutral-900 dark:text-neutral-100 border-b border-neutral-300 dark:border-neutral-700 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500 dark:hover:border-cyan-400 transition-colors"
             >
               Zopsmart
             </Link>

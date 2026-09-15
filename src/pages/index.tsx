@@ -1,10 +1,10 @@
 import type React from "react"
 import Link from "next/link"
-import { Github, Linkedin, X } from "lucide-react"
+import { Github, Linkedin, Newspaper, X } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
 import { MCPVisualization } from "../components/MCPVisualization";
 import HoverGrid from '../components/HoverGrid';
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import About from "../components/About";
 import Name from "../components/Name";
 import Sidebar from "../components/Sidebar";
@@ -13,7 +13,26 @@ import FluidSphere from "../components/FluidSphere";
 import CompoundCube from "../components/CompoundCube";
 
 
-const projects = [
+interface Project {
+  title: string
+  description: string
+  tags: string[]
+  slug: string
+  year: string
+  link?: string
+  status?: "in-progress"
+}
+
+const projects: Project[] = [
+  {
+    title: "Readly - Calm newsletter reader",
+    description: "A calm newsletter reader focused on a distraction-free reading experience.",
+    tags: ["Next.js", "Newsletter", "Reader"],
+    slug: "readly",
+    year: "2026",
+    link: "https://newsletter-app-gold.vercel.app/login",
+    status: "in-progress",
+  },
   {
     title: "Supplier Platform Ads, Meesho",
     description: "Led the monetisation frontend team. Built multiple microfrontend applications powering Meesho's ads platform. Shipped AI-powered Figma-to-React pipeline, Claude Code + Playwright integration for UI library migration, and improved platform LCP from ~4.1s to ~3.3s.",
@@ -38,6 +57,170 @@ const projects = [
     link: "https://eazyupdates.com/",
   },
 ]
+
+const readlyNewsletters = [
+  {
+    sender: "Sahil Bloom",
+    initial: "S",
+    time: "3h",
+    title: "The Curiosity Chronicle",
+    description: "Frameworks worth stealing for calmer decisions.",
+    readTime: "5 min read",
+    excerpt: "Simple frameworks beat clever slogans when you need to decide under pressure. Close with one question: what would this look like if it were easy?",
+  },
+  {
+    sender: "Mark Manson",
+    initial: "M",
+    time: "1d",
+    title: "Mindf*ck Monday",
+    description: "One uncomfortable truth, zero motivational posters.",
+    readTime: "4 min read",
+    excerpt: "A calmer read on honesty over hype, with one uncomfortable truth and one story worth keeping.",
+  },
+  {
+    sender: "James Clear",
+    initial: "J",
+    time: "2d",
+    title: "3-2-1",
+    description: "Habits, quotes, and questions in one quiet scroll.",
+    readTime: "3 min read",
+    excerpt: "Three ideas, two quotes, and one question for building better habits without the noise.",
+  },
+]
+
+function ReadlyEmailPreview() {
+  const [selectedTitle, setSelectedTitle] = useState(readlyNewsletters[0].title)
+  const [activeView, setActiveView] = useState<"inbox" | "saved" | "archive">("inbox")
+  const [savedTitles, setSavedTitles] = useState<string[]>([readlyNewsletters[0].title])
+  const [archivedTitles, setArchivedTitles] = useState<string[]>([])
+  const visibleNewsletters = readlyNewsletters.filter((newsletter) => {
+    if (activeView === "saved") return savedTitles.includes(newsletter.title)
+    if (activeView === "archive") return archivedTitles.includes(newsletter.title)
+    return !archivedTitles.includes(newsletter.title)
+  })
+  const selectedNewsletter =
+    visibleNewsletters.find((newsletter) => newsletter.title === selectedTitle) ??
+    visibleNewsletters[0] ??
+    null
+
+  const toggleSaved = (title: string) => {
+    setSavedTitles((current) =>
+      current.includes(title)
+        ? current.filter((savedTitle) => savedTitle !== title)
+        : [...current, title]
+    )
+  }
+
+  const toggleArchived = (title: string) => {
+    setArchivedTitles((current) =>
+      current.includes(title)
+        ? current.filter((archivedTitle) => archivedTitle !== title)
+        : [...current, title]
+    )
+  }
+
+  return (
+    <div className="max-w-sm overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex h-10 items-center gap-2 border-b border-neutral-200 px-3 dark:border-neutral-800">
+        <Newspaper className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+        <span className="flex-1 text-xs font-medium text-neutral-900 dark:text-neutral-100">Newsletter</span>
+        <span className="text-[10px] tabular-nums text-neutral-400">{readlyNewsletters.length}</span>
+      </div>
+      <div className="flex gap-1 border-b border-neutral-200 px-2 py-2 dark:border-neutral-800">
+        {([
+          ["inbox", "Inbox", readlyNewsletters.length - archivedTitles.length],
+          ["saved", "Saved", savedTitles.length],
+          ["archive", "Archive", archivedTitles.length],
+        ] as const).map(([view, label, count]) => (
+          <button
+            key={view}
+            type="button"
+            onClick={() => setActiveView(view)}
+            className={`rounded-md px-2 py-1 text-[11px] transition-colors ${activeView === view
+              ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+              : "text-neutral-500 hover:bg-white hover:text-neutral-800 dark:hover:bg-neutral-950 dark:hover:text-neutral-200"
+              }`}
+          >
+            {label} <span className="tabular-nums opacity-70">{count}</span>
+          </button>
+        ))}
+      </div>
+      <div className="divide-y divide-neutral-200/70 dark:divide-neutral-800">
+        {visibleNewsletters.length === 0 ? (
+          <div className="px-3 py-5 text-center text-xs text-neutral-400">
+            Nothing here yet.
+          </div>
+        ) : visibleNewsletters.map((newsletter) => {
+          const isSelected = selectedNewsletter?.title === newsletter.title
+          const isSaved = savedTitles.includes(newsletter.title)
+          const isArchived = archivedTitles.includes(newsletter.title)
+
+          return (
+            <div
+              key={newsletter.sender}
+              className={`border-l-2 transition-colors ${isSelected ? "border-l-amber-500 bg-white dark:bg-neutral-950/60" : "border-l-transparent hover:bg-white/70 dark:hover:bg-neutral-950/40"
+                }`}
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedTitle(newsletter.title)}
+                aria-pressed={isSelected}
+                className="flex w-full items-start gap-2.5 px-3 py-2.5 text-left"
+              >
+                <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-semibold ${isSelected
+                  ? "border border-amber-500/40 bg-amber-500/20 text-amber-700 dark:text-amber-300"
+                  : "border border-neutral-200 bg-neutral-100 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-500"
+                  }`}
+                >
+                  {newsletter.initial}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-0.5 flex items-center justify-between gap-2">
+                    <span className="truncate text-xs font-medium text-neutral-800 dark:text-neutral-200">{newsletter.sender}</span>
+                    <span className="shrink-0 text-[10px] text-neutral-400">{newsletter.time}</span>
+                  </div>
+                  <p className="truncate text-xs text-neutral-700 dark:text-neutral-300">{newsletter.title}</p>
+                  <p className="mt-0.5 truncate text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-500">
+                    {newsletter.description}
+                  </p>
+                </div>
+              </button>
+              {isSelected && (
+                <div className="px-3 pb-3 pl-[50px]">
+                  <p className="line-clamp-2 text-[11px] leading-relaxed text-neutral-500 dark:text-neutral-400">
+                    {newsletter.excerpt}
+                  </p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => toggleSaved(newsletter.title)}
+                      className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isSaved
+                        ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                        : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+                        }`}
+                    >
+                      {isSaved ? "Saved" : "Save"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => toggleArchived(newsletter.title)}
+                      className={`rounded-md border px-2 py-1 text-[11px] transition-colors ${isArchived
+                        ? "border-neutral-300 bg-neutral-100 text-neutral-700 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+                        : "border-neutral-200 text-neutral-500 hover:border-neutral-300 hover:text-neutral-800 dark:border-neutral-800 dark:hover:border-neutral-700 dark:hover:text-neutral-200"
+                        }`}
+                    >
+                      {isArchived ? "Restore" : "Archive"}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
 
 const tools = [
   {
@@ -115,6 +298,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState<string>("about")
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [selectedBook, setSelectedBook] = useState<string | null>(null)
+  const mainRef = useRef<HTMLElement | null>(null)
 
   // Centralized toggle state
   const [isToggleOn, setIsToggleOn] = useState<boolean>(false)
@@ -150,6 +334,10 @@ export default function Home() {
       window.history.pushState({}, '', '/')
     }
   }, [activeSection])
+
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0, left: 0 })
+  }, [activeSection, selectedProject, selectedBook, selectedAnimation])
 
   // Handle browser back/forward buttons
   useEffect(() => {
@@ -209,15 +397,15 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
-      <div className="max-w-[900px] mx-auto px-8 py-20 w-full flex-grow">
-        <header className="mb-16 flex flex-col md:flex-row">
-          <div className="md:w-40 mb-8 md:mb-0">
+    <div className="flex h-dvh max-h-dvh flex-col overflow-hidden antialiased selection:bg-neutral-200 dark:selection:bg-neutral-800">
+      <div className="mx-auto flex min-h-0 w-full max-w-[900px] flex-1 px-6 py-10 sm:px-8 sm:py-20">
+        <header className="flex min-h-0 min-w-0 flex-1 flex-col md:flex-row">
+          <div className="mb-8 shrink-0 md:mb-0 md:w-40">
             <Name />
             <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} />
           </div>
 
-          <main className="md:flex-1 md:pl-16 border-l border-neutral-100 dark:border-neutral-800">
+          <main ref={mainRef} className="scrollbar-none min-h-0 min-w-0 overflow-y-auto overflow-x-hidden overscroll-contain border-l border-neutral-100 pb-4 dark:border-neutral-800 sm:pb-8 md:flex-1 md:pl-16">
             <div className="hidden md:flex justify-end mb-6">
               <ThemeToggle />
             </div>
@@ -253,9 +441,9 @@ export default function Home() {
 
                       return (
                         <div className="space-y-6">
-                          <div className="flex items-center space-x-4 text-sm text-neutral-500 dark:text-neutral-400">
-                            <span>{project.year}</span>
-                            <span>•</span>
+                          <div className="flex flex-col items-start gap-3 text-sm text-neutral-500 dark:text-neutral-400 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
+                            <span className="whitespace-nowrap">{project.year}</span>
+                            <span className="hidden sm:inline">•</span>
                             <div className="flex flex-wrap gap-2">
                               {project.tags.map((tag) => (
                                 <span
@@ -266,6 +454,12 @@ export default function Home() {
                                 </span>
                               ))}
                             </div>
+                            {project.status === "in-progress" && (
+                              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-600 dark:bg-green-900/20 dark:text-green-400">
+                                <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
+                                In progress
+                              </span>
+                            )}
                           </div>
 
                           <div className="space-y-6">
@@ -274,11 +468,26 @@ export default function Home() {
                               {project.description}
                             </p>
 
+                            {project.slug === "readly" && project.link && (
+                              <div>
+                                <Link
+                                  href={project.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300"
+                                >
+                                  View Project →
+                                </Link>
+                              </div>
+                            )}
+
+                            {project.slug === "readly" && <ReadlyEmailPreview />}
+
                             {/* Project Link */}
-                            {(project as any).link && (
+                            {project.slug !== "readly" && project.link && (
                               <div className="pt-4">
                                 <Link
-                                  href={(project as any).link}
+                                  href={project.link}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors border-b border-neutral-300 dark:border-neutral-700 hover:border-neutral-900 dark:hover:border-neutral-300"
@@ -298,12 +507,18 @@ export default function Home() {
                       <li key={project.slug} className="group">
                         <button
                           onClick={() => setSelectedProject(project.slug)}
-                          className="flex items-baseline w-full text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
+                          className="flex w-full items-center text-left hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
                         >
-                          <span className="flex-1">
-                            {project.title}
+                          <span className="flex min-w-0 flex-1 items-center gap-2">
+                            <span className="truncate text-[14px] sm:text-[15px]">{project.title}</span>
+                            {project.status === "in-progress" && (
+                              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-green-100 px-1.5 py-0.5 text-[11px] leading-none text-green-600 dark:bg-green-900/20 dark:text-green-400 sm:gap-1.5 sm:px-2 sm:text-xs">
+                                <span className="h-1.5 w-1.5 rounded-full animate-blink-green-white" aria-hidden="true" />
+                                In progress
+                              </span>
+                            )}
                           </span>
-                          <span className="ml-4 text-neutral-400 text-sm tabular-nums">{project.year}</span>
+                          <span className="ml-2 shrink-0 text-neutral-400 text-sm tabular-nums sm:ml-4">{project.year}</span>
                         </button>
                       </li>
                     ))}
@@ -366,12 +581,12 @@ export default function Home() {
             </div>
 
             <div className={activeSection === "visualization" ? "" : "hidden"}>
-              <section className="pl-6">
+              <section className="min-w-0 overflow-x-hidden pl-4 pr-0 sm:pl-6">
                 {selectedAnimation ? (
-                  <div>
+                  <div className="min-w-0">
                     {/* Breadcrumb Navigation */}
                     <nav className="mb-8">
-                      <div className="flex items-center space-x-2 text-sm text-neutral-500 dark:text-neutral-400">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-500 dark:text-neutral-400">
                         <button
                           onClick={() => {
                             setSelectedAnimation(null)
@@ -382,7 +597,7 @@ export default function Home() {
                           Visualization
                         </button>
                         <span>›</span>
-                        <span className="text-neutral-900 dark:text-neutral-100">
+                        <span className="min-w-0 break-words text-neutral-900 dark:text-neutral-100">
                           {visualizations.find(v => v.slug === selectedAnimation)?.title ?? selectedAnimation}
                         </span>
                       </div>
@@ -390,19 +605,19 @@ export default function Home() {
 
                     {/* Activity Demo Content */}
                     {selectedAnimation === 'activity-tag' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-5 sm:space-y-6">
                         {/* Main Heading */}
-                        <h2 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 mb-4">
+                        <h2 className="mb-4 text-xl font-semibold text-neutral-900 dark:text-neutral-100 sm:text-2xl">
                           &lt;Activity /&gt; tag
                         </h2>
 
                         {/* Description */}
-                        <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8 max-w-2xl">
+                        <p className="mb-6 max-w-full break-words text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:mb-8 sm:text-base">
                           Activity keeps components mounted when hidden. Normal React unmounts and re-mounts, losing all state. Great for tabs and modals.
                         </p>
 
                         {/* Centralized Toggle Button */}
-                        <div className="flex items-center gap-4 mb-8">
+                        <div className="mb-6 flex items-center gap-4 sm:mb-8">
                           <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
                             Hide Input
                           </h3>
@@ -420,18 +635,115 @@ export default function Home() {
                           </button>
                         </div>
 
+                        {/* Compact mobile summary */}
+                        <div className="space-y-3 sm:hidden">
+                          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                            <div className="flex items-center justify-between gap-3">
+                              <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                Without Activity
+                              </h3>
+                              <span className="rounded-full border border-neutral-200 px-2 py-0.5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                {isToggleOn ? "Mounted" : "Unmounted"}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-500">
+                              Turning the toggle off removes the input, so its state resets when it comes back.
+                            </p>
+                            {isToggleOn && (
+                              <div className="mt-4 flex min-h-[64px] items-center justify-center">
+                                {leftMountingPhase === 'loading' ? (
+                                  <div className="flex flex-col items-center space-y-2">
+                                    <div className="loader">
+                                      <div className="loader-dot"></div>
+                                      <div className="loader-dot"></div>
+                                      <div className="loader-dot"></div>
+                                    </div>
+                                    <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                                      Component Mounting
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <input
+                                    type="text"
+                                    value={leftInputValue}
+                                    onChange={(e) => setLeftInputValue(e.target.value)}
+                                    onFocus={(e) => e.target.setSelectionRange(0, 0)}
+                                    className={`w-full border-0 border-b border-neutral-300 bg-transparent px-2 py-1.5 text-center text-sm focus:outline-none dark:border-neutral-700 ${leftInputValue !== initialValue
+                                      ? 'text-green-600 dark:text-green-400'
+                                      : 'text-yellow-500 dark:text-yellow-400'
+                                      }`}
+                                  />
+                                )}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+                            <div className="flex items-center justify-between gap-3">
+                              <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                                With Activity
+                              </h3>
+                              <span className="rounded-full border border-neutral-200 px-2 py-0.5 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                {isToggleOn ? "Visible" : "Hidden"}
+                              </span>
+                            </div>
+                            <p className="mt-2 text-xs leading-relaxed text-neutral-500 dark:text-neutral-500">
+                              Activity hides the input while keeping it mounted, preserving its state.
+                            </p>
+                            <div className="mt-4 flex min-h-[64px] items-center justify-center">
+                              {!hasRightMounted && isToggleOn && rightMountingPhase === 'loading' ? (
+                                <div className="flex flex-col items-center space-y-2">
+                                  <div className="loader">
+                                    <div className="loader-dot"></div>
+                                    <div className="loader-dot"></div>
+                                    <div className="loader-dot"></div>
+                                  </div>
+                                  <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300">
+                                    Component Mounting
+                                  </p>
+                                </div>
+                              ) : (
+                                <div className="relative w-full">
+                                  <div
+                                    className={`transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                                      }`}
+                                  >
+                                    <input
+                                      type="text"
+                                      value={rightInputValue}
+                                      onChange={(e) => setRightInputValue(e.target.value)}
+                                      onFocus={(e) => e.target.setSelectionRange(0, 0)}
+                                      className={`w-full border-0 border-b border-neutral-300 bg-transparent px-2 py-1.5 text-center text-sm focus:outline-none dark:border-neutral-700 ${rightInputValue !== initialValue
+                                        ? 'text-green-600 dark:text-green-400'
+                                        : 'text-yellow-500 dark:text-yellow-400'
+                                        }`}
+                                    />
+                                  </div>
+                                  {!isToggleOn && (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                      <span className="rounded-full border border-neutral-200 px-2.5 py-1 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                        Hidden
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
                         {/* Toggle Demos - Side by Side */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                        <div className="hidden w-full max-w-full grid-cols-1 gap-5 sm:grid md:grid-cols-2 md:gap-6">
                           {/* Left Card - WITHOUT Activity */}
-                          <div>
-                            <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3 text-center">
+                          <div className="min-w-0">
+                            <h3 className="mb-3 text-left text-sm font-medium text-neutral-600 dark:text-neutral-400 sm:text-center">
                               Without Activity
                             </h3>
                             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
-                              <div className="p-6">
+                              <div className="p-4 sm:p-6">
 
                                 {/* Loader and Input Area */}
-                                <div className="flex flex-col items-center justify-center py-6 min-h-[180px]">
+                                <div className="flex min-h-[140px] flex-col items-center justify-center py-4 sm:min-h-[180px] sm:py-6">
                                   {isToggleOn ? (
                                     <div className="flex flex-col items-center space-y-3 animate-in fade-in duration-300">
                                       {leftMountingPhase === 'loading' && (
@@ -451,7 +763,7 @@ export default function Home() {
 
                                       {leftMountingPhase === 'input' && (
                                         /* Input Phase */
-                                        <div className="w-56">
+                                        <div className="w-full max-w-56">
                                           <input
                                             type="text"
                                             value={leftInputValue}
@@ -467,8 +779,13 @@ export default function Home() {
                                       )}
                                     </div>
                                   ) : (
-                                    <div className="flex flex-col items-center space-y-3 animate-out fade-out duration-300">
-                                      {/* Empty state when toggle is off */}
+                                    <div className="flex flex-col items-center space-y-2 animate-out fade-out duration-300">
+                                      <span className="rounded-full border border-neutral-200 px-2.5 py-1 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                        Unmounted
+                                      </span>
+                                      <p className="text-center text-xs text-neutral-400 dark:text-neutral-500">
+                                        Toggle on to mount this input again.
+                                      </p>
                                     </div>
                                   )}
                                 </div>
@@ -477,14 +794,14 @@ export default function Home() {
                           </div>
 
                           {/* Right Card - WITH Activity */}
-                          <div>
-                            <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-3 text-center">
+                          <div className="min-w-0">
+                            <h3 className="mb-3 text-left text-sm font-medium text-neutral-600 dark:text-neutral-400 sm:text-center">
                               With Activity
                             </h3>
                             <div className="bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-lg overflow-hidden">
-                              <div className="p-6">
+                              <div className="p-4 sm:p-6">
                                 {/* Activity Wrapper - Component stays mounted */}
-                                <div className="flex flex-col items-center justify-center py-6 min-h-[180px]">
+                                <div className="flex min-h-[140px] flex-col items-center justify-center py-4 sm:min-h-[180px] sm:py-6">
                                   {!hasRightMounted && isToggleOn && rightMountingPhase === 'loading' ? (
                                     /* Initial Mounting - Show Loader */
                                     <div className="flex flex-col items-center space-y-3">
@@ -500,20 +817,34 @@ export default function Home() {
                                   ) : (
                                     /* Activity: Component is mounted, just toggle visibility */
                                     <div
-                                      className={`w-56 transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                                        }`}
+                                      className="relative w-full max-w-56"
                                     >
-                                      <input
-                                        type="text"
-                                        value={rightInputValue}
-                                        onChange={(e) => setRightInputValue(e.target.value)}
-                                        onFocus={(e) => e.target.setSelectionRange(0, 0)}
-                                        placeholder=""
-                                        className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${rightInputValue !== initialValue
-                                          ? 'text-green-600 dark:text-green-400'
-                                          : 'text-yellow-500 dark:text-yellow-400'
+                                      <div
+                                        className={`transition-opacity duration-300 ${isToggleOn ? 'opacity-100' : 'opacity-0 pointer-events-none'
                                           } placeholder-yellow-300 dark:placeholder-yellow-200`}
-                                      />
+                                      >
+                                        <input
+                                          type="text"
+                                          value={rightInputValue}
+                                          onChange={(e) => setRightInputValue(e.target.value)}
+                                          onFocus={(e) => e.target.setSelectionRange(0, 0)}
+                                          placeholder=""
+                                          className={`w-full px-3 py-2 border-0 border-b-2 border-neutral-300 dark:border-neutral-600 bg-transparent text-center text-sm focus:outline-none transition-all duration-300 animate-in slide-in-from-bottom duration-400 ${rightInputValue !== initialValue
+                                            ? 'text-green-600 dark:text-green-400'
+                                            : 'text-yellow-500 dark:text-yellow-400'
+                                            } placeholder-yellow-300 dark:placeholder-yellow-200`}
+                                        />
+                                      </div>
+                                      {!isToggleOn && (
+                                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                                          <span className="rounded-full border border-neutral-200 px-2.5 py-1 text-xs text-neutral-400 dark:border-neutral-800 dark:text-neutral-500">
+                                            Hidden
+                                          </span>
+                                          <p className="text-center text-xs text-neutral-400 dark:text-neutral-500">
+                                            State is preserved while hidden.
+                                          </p>
+                                        </div>
+                                      )}
                                     </div>
                                   )}
                                 </div>
@@ -523,9 +854,9 @@ export default function Home() {
                         </div>
 
                         {/* Code Snippet - Blue/Green/Red (Classic) */}
-                        <div className="rounded-lg overflow-hidden max-w-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 mt-8">
-                          <pre className="p-4 overflow-x-auto">
-                            <code className="text-sm font-mono leading-relaxed">
+                        <div className="mt-8 hidden max-w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 sm:block">
+                          <pre className="overflow-x-auto p-3 sm:p-4">
+                            <code className="font-mono text-xs leading-relaxed sm:text-sm">
                               <span className="text-blue-600 dark:text-blue-400">&lt;Activity</span>{" "}
                               <span className="text-neutral-500 dark:text-neutral-500">mode</span>
                               <span className="text-neutral-500 dark:text-neutral-600">=&amp;#123;</span>
@@ -549,27 +880,27 @@ export default function Home() {
 
                     {/* MCP Flow Visualization */}
                     {selectedAnimation === 'mcp-flow' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <MCPVisualization />
                       </div>
                     )}
                     {selectedAnimation === 'hover-grid' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <HoverGrid />
                       </div>
                     )}
                     {selectedAnimation === 'gradient-circle' && (
-                      <div className="space-y-6">
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <GradientCircle />
                       </div>
                     )}
                     {selectedAnimation === 'fluid-sphere' && (
-                      <div className="space-y-6 h-[600px]">
+                      <div className="h-[420px] min-w-0 space-y-6 overflow-hidden sm:h-[600px]">
                         <FluidSphere />
                       </div>
                     )}
                     {selectedAnimation === 'compound-cube' && (
-                      <div className="space-y-6 h-[600px]">
+                      <div className="h-[420px] min-w-0 space-y-6 overflow-hidden sm:h-[600px]">
                         <CompoundCube />
                       </div>
                     )}
@@ -585,12 +916,12 @@ export default function Home() {
                               setSelectedAnimation(viz.slug)
                               window.history.pushState({}, '', `/visualization/${viz.slug}`)
                             }}
-                            className="flex items-baseline w-full text-left cursor-pointer"
+                            className="flex w-full min-w-0 cursor-pointer items-baseline text-left"
                           >
-                            <span className="flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+                            <span className="min-w-0 flex-1 group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
                               {viz.title}
                             </span>
-                            <span className="ml-4 text-neutral-400 text-sm tabular-nums">{viz.date}</span>
+                            <span className="ml-4 shrink-0 text-neutral-400 text-sm tabular-nums">{viz.date}</span>
                           </button>
                           <p className="text-sm text-neutral-500 dark:text-neutral-400">{viz.description}</p>
                         </div>
@@ -693,9 +1024,9 @@ export default function Home() {
         </header>
       </div>
 
-      <footer className="w-full border-t border-neutral-100 dark:border-neutral-800">
-        <div className="max-w-[900px] mx-auto px-8 py-6 flex flex-col md:flex-row justify-between items-start md:items-center">
-          <div className="flex space-x-5 mb-4 md:mb-0">
+      <footer className="w-full shrink-0 border-t border-neutral-100 dark:border-neutral-800">
+        <div className="mx-auto flex max-w-[900px] items-center justify-between px-6 py-3 sm:px-8 sm:py-6">
+          <div className="flex space-x-5">
             <Link
               href="https://x.com/nikhilchandna01"
               target="_blank"
