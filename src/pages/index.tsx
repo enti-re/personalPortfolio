@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Github, Linkedin, Newspaper, X } from "lucide-react"
 import { ThemeToggle } from "../components/theme-toggle"
 import { MCPVisualization } from "../components/MCPVisualization";
+import { EmbeddingsVisualization } from "../components/EmbeddingsVisualization";
 import HoverGrid from '../components/HoverGrid';
 import { useState, useEffect, useRef } from "react"
 import About from "../components/About";
@@ -241,6 +242,12 @@ const tools = [
 ]
 
 const visualizations = [
+  {
+    title: "Embeddings & RAG",
+    slug: "embeddings-rag",
+    date: "Sep 2026",
+    description: "How raw context gets consumed token by token and converted into a fixed-length embedding vector",
+  },
   {
     title: "React 19 Activity Component",
     slug: "activity-tag",
@@ -882,6 +889,11 @@ export default function Home() {
                     {selectedAnimation === 'mcp-flow' && (
                       <div className="min-w-0 space-y-6 overflow-x-hidden">
                         <MCPVisualization />
+                      </div>
+                    )}
+                    {selectedAnimation === 'embeddings-rag' && (
+                      <div className="min-w-0 space-y-6 overflow-x-hidden">
+                        <EmbeddingsVisualization />
                       </div>
                     )}
                     {selectedAnimation === 'hover-grid' && (
